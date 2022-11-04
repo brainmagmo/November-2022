@@ -18,6 +18,6 @@ public class LocationBuilder {
 	}
 
 	public LocationObjectMother build() {
-		return mother;
+		return this.mother;
 	}
 }
