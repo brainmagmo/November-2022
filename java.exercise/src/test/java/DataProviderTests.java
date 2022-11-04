@@ -8,6 +8,13 @@ public class DataProviderTests {
 		var actualStateName = States.Texas.Name;
 		Assert.assertEquals(actualStateName, expectedStateName, "The state name should be returned.");
 	}
+	
+	@Test
+	public void canGetCityName() {
+		var expectedCityName = "Houston";
+		var actualCityName = Cities.Houston.Name;
+		Assert.assertEquals(actualCityName, expectedCityName, "The city name should be returned.");
+	}
 
 	@Test
 	public void canGetStateAbbreviation() {
@@ -16,9 +23,7 @@ public class DataProviderTests {
 		var actualStateAbbr = States.Louisiana.Abbreviation;
 		Assert.assertEquals(actualStateAbbr, expectedStateAbbr, "The state abbreviation" + 
 		" should be returned.");
-
-	}
-	
+	}	
 
 	@Test
 	public void canGetStateNameFromObjectMother() {
@@ -34,6 +39,13 @@ public class DataProviderTests {
 		var actualStateName = States.California.Name;
 		Assert.assertEquals(actualStateName, expectedStateName, "The state name should be returned.");
 	}
+	
+	@Test
+	public void canGetCityName2() {
+		var expectedCityName = "New York";
+		var actualCityName = Cities.NewYork.Name;
+		Assert.assertEquals(actualCityName, expectedCityName, "The city name should be returned.");
+	}
 
 	@Test
 	public void canGetStateAbbreviation2() {
@@ -42,9 +54,7 @@ public class DataProviderTests {
 		var actualStateAbbr = States.NewYork.Abbreviation;
 		Assert.assertEquals(actualStateAbbr, expectedStateAbbr, "The state abbreviation" + 
 		" should be returned.");
-
-	}
-	
+	}	
 
 	@Test
 	public void canGetStateNameFromObjectMother2() {

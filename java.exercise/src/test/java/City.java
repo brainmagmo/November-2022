@@ -2,8 +2,10 @@
 
 public class City {
 
-	public City(String string) {
-		// TODO Auto-generated constructor stub
+	public Object Name;
+
+	public City(String name) {
+		this.Name = name;
 	}
 
 }
