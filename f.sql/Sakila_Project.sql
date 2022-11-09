@@ -32,38 +32,38 @@ where store_id = 1;
 -- 5. Get all payment records for customer with email address "NANCY.THOMAS@sakilacustomer.org"
 
 select * 
-from sakila.payment as p
-inner join sakila.customer as c
+from sakila.payment p
+join sakila.customer c
 using ( customer_id )
 where c.email = 'NANCY.THOMAS@sakilacustomer.org';
 
 -- 6. Use a View to get the film info for actor Bob Fawcett.
 
--- returns a table
+-- EITHER:
 select * 
 from sakila.film_list 
 where actors 
 like '%BOB FAWCETT%';
+-- returns a table
 
 -- OR:
-
--- returns a string
 select film_info 
 from sakila.actor_info 
 where first_name = 'bob' 
 and last_name = 'fawcett';
+-- returns a string
 
 -- 7. Use a Stored Procedure to get the 4 inventory ids for the film "Alien Center" at Store #2. 
 
-set @p_film_count = 0;
+set @var = 0;
 call sakila.film_in_stock(
-	(
-		select film_id 
-		from sakila.film 
-		where title = 'Alien Center'
+    (
+        select film_id 
+        from sakila.film 
+        where title = 'Alien Center'
     ),
-	 2, 
-	 @p_film_count
+     2, 
+     @var
  );
 
 -- 8. Insert a new store. Ensure that you use TRANSACTION. (This one is possible but it's tough! Pay attention to constraints and the order that you are inserting data.) 
@@ -71,34 +71,41 @@ call sakila.film_in_stock(
 start transaction;
 
 set @address = (
-	select address_id 
-	from sakila.address
-	where address_id not in (
-		select address_id 
-		from sakila.store
-	) limit 1
+    select address_id 
+    from sakila.address
+    where address_id not in (
+        select address_id 
+        from sakila.store
+    ) 
+    limit 1
 );
 
 insert into sakila.staff(
-	first_name,	last_name,
-	address_id, email,
-	store_id,
-	username, password
-	) values (
-    'trevor','kleinstuber',
-	@address, 'tklein@email.site',
-	(
-		select store_id 
-		from sakila.store 
-		limit 1
+    first_name,    
+    last_name,
+    address_id, 
+    email,
+    store_id,
+    username, 
+    password
+    ) values (
+    'trevor',
+    'kleinstuber',
+    @address, 
+    'tklein@email.site',
+    (
+        select store_id 
+        from sakila.store 
+        limit 1
     ),
-	'tklein', 'very secure password'
-	);
+    'tklein', 
+    'very secure password'
+    );
     
 set @staff = LAST_INSERT_ID();
 
 insert into sakila.store(
-	manager_staff_id,
+    manager_staff_id,
     address_id
     ) values (
     @staff, 
@@ -121,7 +128,7 @@ where store_id = @mystore;
 
 update sakila.staff
 set store_id = (
-	select store_id 
+    select store_id 
     from sakila.store 
     where store_id != @mystore 
     limit 1
@@ -131,12 +138,7 @@ where staff_id = @staff;
 delete from sakila.store
 where store_id = @mystore;
 
--- delete from sakila.staff where staff_id = @staff;
--- select * from sakila.staff where staff_id = @staff;
--- select * from sakila.store where manager_staff_id = @staff;
-
 rollback;
-
 
 -- 11. Using one SQL statement, get how many films are there in each rating category.
 
@@ -149,12 +151,12 @@ group by rating;
 select c.first_name, c.last_name, spent
 from sakila.customer as c
 join (
-	select sum(amount) as spent, customer_id
-	from sakila.payment as p
-	group by customer_id
-	order by spent desc
-	limit 3
-	)
+    select sum(amount) as spent, customer_id
+    from sakila.payment as p
+    group by customer_id
+    order by spent desc
+    limit 3
+    )
 as big_spenders using ( customer_id );
 
 -- 13. Get all movies rented by the customer who spent the most. (Hint: This will either require nested queries, or more than two joins. one approach is much shorter than the other.)
@@ -164,12 +166,13 @@ from sakila.film
 join sakila.inventory using ( film_id )
 join sakila.rental using ( inventory_id )
 join (
-	select sum(amount) as spent, customer_id
-	from sakila.payment
-	group by customer_id
-	order by spent desc
-	limit 1
-) as big_spender using ( customer_id );
+    select sum(amount) as spent, customer_id
+    from sakila.payment
+    group by customer_id
+    order by spent desc
+    limit 1
+    ) 
+as big_spender using ( customer_id );
 
 -- 14. Get the first and last names of all customers who spent more than $150, along with how much they spent.
 
@@ -177,10 +180,43 @@ select c.first_name, c.last_name, spent
 from sakila.customer as c
 join (
     select sum(amount) as spent, customer_id
-	from sakila.payment as p
-	group by customer_id
-) as big_spenders using ( customer_id )
+    from sakila.payment as p
+    group by customer_id
+    )
+as big_spenders using ( customer_id )
 where spent > 150;
+
+-- 12 through 14 using views
+
+create view sakila.customer_spending as
+select sum(p.amount) as spent, c.first_name, c.last_name, customer_id
+from sakila.customer c
+join sakila.payment p
+using ( customer_id )
+group by customer_id;
+
+select first_name, last_name, spent
+from sakila.customer_spending
+order by spent desc
+limit 3;
+
+select f.title 
+from sakila.film f
+join sakila.inventory i using ( film_id )
+join sakila.rental r using ( inventory_id )
+join ( 
+    select spent, customer_id
+    from sakila.customer_spending 
+    order by spent desc
+    limit 1
+    )
+as big_spender using ( customer_id );
+
+select first_name, last_name, spent
+from sakila.customer_spending 
+where spent > 150;
+
+drop view sakila.customer_spending;
 
 -- Do not hard code IDs.
 
