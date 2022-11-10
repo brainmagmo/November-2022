@@ -7,5 +7,7 @@ public interface DatabaseAccessor {
 	String ExecuteSingleCell(String sql);
 	
 	DataRow[] Execute(String sql);
+
+	public void start();
 	
 }

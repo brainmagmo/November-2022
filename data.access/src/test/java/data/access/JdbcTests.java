@@ -11,9 +11,14 @@ public class JdbcTests {
 	public void Setup() {
 		this.accessor = new DatabaseUtility();
 	}
+	
+	@Test
+	public void canStart() {
+		accessor.start();
+	}
 
 	@Test
-	public void canAccessDataBase (DatabaseAccessor db){
+	public void canAccessDataBase (){
 		var result = ExecuteQuery("sql");
 		Assert.assertNotNull(result);
 	}
