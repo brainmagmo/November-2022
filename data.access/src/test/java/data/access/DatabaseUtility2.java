@@ -1,6 +1,6 @@
 package data.access;
 
-public class DatabaseUtility2 implements DatabaseAccessor {
+public abstract class DatabaseUtility2 implements DatabaseAccessor {
 
 	public String[] ExecuteSingleColumn(String sql) {
 		// TODO Auto-generated method stub
