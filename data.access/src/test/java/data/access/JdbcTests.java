@@ -14,7 +14,7 @@ public class JdbcTests {
 		this.sQueries = new SakilaQueries(this.accessor);
 	}
 	
-	//A1. Get 10 cities in descending alphabetical order.
+	//A1. Get 10 cities in descending alphabetical order. PASS
 	@Test
 	public void canGetCities() {
 		String[] result = this.sQueries.getCities();
@@ -34,7 +34,7 @@ public class JdbcTests {
 		Assert.assertEquals(result, expected);
 	}
 	
-	//B3. Get the highest payment amount.
+	//B3. Get the highest payment amount. PASS
 	@Test
 	public void canGetHighestPayment() {
 		var result = this.sQueries.getHighestPayment();
@@ -42,7 +42,7 @@ public class JdbcTests {
 		Assert.assertEquals(result, expected);
 	}
 	
-	//C6. Use a View to get the film info for actor Bob Fawcett.
+	//C6. Use a View to get the film info for actor Bob Fawcett. PASS
 	@Test
 	public void canUseView() {
 		var result = this.sQueries.getFilmInfo("Bob Fawcett");
