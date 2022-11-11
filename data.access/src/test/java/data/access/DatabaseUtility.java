@@ -66,8 +66,8 @@ public class DatabaseUtility implements DatabaseAccessor {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);) {
 			ArrayList<String> outputList = new ArrayList<String>();
-			while(rs.next()) {;
-			outputList.add(rs.getString(1));
+			while(rs.next()) {
+				outputList.add(rs.getString(1));
 			}
 			return (String[]) outputList.toArray();
 		} catch (SQLException e) {

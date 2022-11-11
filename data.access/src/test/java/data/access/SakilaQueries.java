@@ -50,6 +50,11 @@ public class SakilaQueries {
 		return sa;
 	}
 
+	public String[] getCities() {
+		var QUERY = "select city from sakila.city order by city desc limit 10;";
+		return db.ExecuteSingleColumn(QUERY);
+	}
+
 
 
 }

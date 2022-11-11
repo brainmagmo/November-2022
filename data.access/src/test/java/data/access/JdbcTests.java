@@ -17,9 +17,20 @@ public class JdbcTests {
 	//A1. Get 10 cities in descending alphabetical order.
 	@Test
 	public void canGetCities() {
-		var QUERY = "select * from sakila.city order by city desc limit 10;";
-		var result = ExecuteQuery(QUERY);
-		var expected = "";
+		String[] result = this.sQueries.getCities();
+		String[] expected = {
+				"Ziguinchor",
+				"Zhoushan",
+				"Zhezqazghan",
+				"Zeleznogorsk",
+				"Zaria",
+				"Zapopan",
+				"Zaoyang",
+				"Zanzibar",
+				"Zalantun",
+				"Yuzhou"
+				};
+		
 		Assert.assertEquals(result, expected);
 	}
 	
