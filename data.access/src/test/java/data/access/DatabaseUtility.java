@@ -69,10 +69,10 @@ public class DatabaseUtility implements DatabaseAccessor {
 			String s;
 			while(rs.next()) {
 				s = rs.getString(1);
-				System.out.println(s);
+				//System.out.println(s);
 				outputList.add(s);
 			}
-			return (String[]) outputList.toArray();
+			return outputList.toArray(new String[outputList.size()]);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
