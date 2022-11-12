@@ -12,7 +12,7 @@ public interface DatabaseAccessor {
 	DataRow[] executeCall(
 			String call, 
 			String[] paramNames, Object[] inputs, int[] inputTypes, 
-			int[] outputTypes, String[] outputNames 
+			String[] outputNames, int[] outputTypes 
 			);
 	
 	

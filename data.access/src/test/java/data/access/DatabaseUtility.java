@@ -9,7 +9,6 @@ public class DatabaseUtility implements DatabaseAccessor {
 	static final String USER = "root";
 	static final String PASS = "password";
 
-	
 	public DataRow[] executeQuery(String sql) {
 		
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -36,9 +35,14 @@ public class DatabaseUtility implements DatabaseAccessor {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);) {
 			
+			String s = null;
+			
 			if(rs.next()) {
-				return rs.getString(1);
+				s=  rs.getString(1);
 			}
+			
+			rs.close();
+			return s;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -60,6 +64,7 @@ public class DatabaseUtility implements DatabaseAccessor {
 				outputList.add(s);
 			}
 			
+			rs.close();
 			return outputList.toArray(new String[outputList.size()]);
 			
 		} catch (SQLException e) {
@@ -71,7 +76,7 @@ public class DatabaseUtility implements DatabaseAccessor {
 	public DataRow[] executeCall(
 			String call, 
 			String[] paramNames, Object[] inputs, int[] inputTypes, 
-			int[] outputTypes, String[] outputNames 
+			String[] outputNames, int[] outputTypes 
 			) {
 
 		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -121,8 +126,7 @@ public class DatabaseUtility implements DatabaseAccessor {
 				outputList.add(new StringRow(currentRowData));
 			}
 			
-			rs.close();
-			
+			rs.close();			
 			return outputList.toArray(new DataRow[outputList.size()]);
 			
 		} catch (SQLException e) {
