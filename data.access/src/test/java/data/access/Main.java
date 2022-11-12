@@ -23,6 +23,7 @@ public class Main {
 	static final String CALL = ""
 			+ "{CALL sakila.film_in_stock(? , ? , ?)}"
 			;
+	static final int STORE = 2;
 
 	public static DataRow[] ExecuteCall(
 			String call, 
@@ -34,7 +35,7 @@ public class Main {
 			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			CallableStatement stmt = conn.prepareCall(call);
 			for (int i = 1 ; i <= inputTypes.length ; i++) {
-				stmt.setObject(i, inputTypes[i-1]);
+				stmt.setObject(i, inputs[i-1]);
 			}
 			for (int i = 1 ; i <= outputTypes.length ; i++) {
 				stmt.registerOutParameter(i+inputTypes.length, outputTypes[i-1]);
@@ -42,10 +43,6 @@ public class Main {
 			boolean b = stmt.execute();
 			System.out.println("b: " + b);
 			if(b) {
-				Object[] outputInfo = new Object[outputNames.length];
-				for (int i = 1 ; i <= outputNames.length ; i++) {
-					outputInfo[i-1] = stmt.getInt(outputNames[i-1]);
-				}
 				ResultSet rs = stmt.getResultSet();
 				int numberOfCols = rs.getMetaData().getColumnCount();
 				System.out.println("cols: " + numberOfCols);
@@ -93,9 +90,37 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		String[] results = getInventoryIds("Alien Center", 2);
-		for(var result:results) {
-			System.out.println(result);
-		}
+		DatabaseAccessor db = new DatabaseUtility();
+		int filmID = Integer.valueOf(
+				db.ExecuteSingleCell(SQL));
+
+		try {
+			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			CallableStatement stmt = conn.prepareCall("{CALL sakila.film_in_stock(? , ? , ?)}");
+
+			stmt.setInt(1, filmID);
+			stmt.setInt(2, STORE);
+
+			stmt.registerOutParameter(3, Types.INTEGER);
+
+			boolean b = stmt.execute();
+			System.out.println("b: " + b);
+			
+			if(b) {
+				ResultSet rs = stmt.getResultSet();
+				int numberOfCols = rs.getMetaData().getColumnCount();
+				System.out.println("cols: " + numberOfCols);
+				
+				while(rs.next()) {// -> false??????????
+					System.out.println("next");
+					for(int i = 1; i <= numberOfCols; i++) {
+						var s = rs.getString(i);
+						System.out.println(i + " " + s);
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
 	}
 }
