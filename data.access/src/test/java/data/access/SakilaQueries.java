@@ -1,8 +1,18 @@
 package data.access;
 
+import java.sql.Types;
+
 public class SakilaQueries {
 
 	private DatabaseAccessor db;
+	static final String FILM_ID_SQL = 	""
+			+ "SELECT film_id "
+			+ "FROM sakila.film "
+			+ "WHERE title = '"
+			;
+	static final String FIS_CALL = ""
+			+ "{CALL sakila.film_in_stock(? , ? , ?)}"
+			;
 
 	public SakilaQueries(DatabaseAccessor accessor) {
 		this.db = accessor;
@@ -12,7 +22,7 @@ public class SakilaQueries {
 		String sql = "SELECT MAX(p.amount) AS 'MaxAmount'"
 				+ " FROM sakila.payment p;"
 				;
-		return db.ExecuteSingleCell(sql);
+		return db.executeSingleCell(sql);
 	}
 
 	public String getFilmInfo(String actorName) {
@@ -25,34 +35,29 @@ public class SakilaQueries {
 						+ names[names.length-1]
 								+ "';"
 								;
-		return db.ExecuteSingleCell(sql);
+		return db.executeSingleCell(sql);
 	}
 
 	public String[] getInventoryIds(String film, int storeID) {
-		String sql = ""
 
-				+ "{call sakila.film_in_stock("
-				+ "(SELECT film_id"
-				+ " FROM sakila.film"
-				+ " WHERE title = '" 
-				+ film 
-				+ "'), " 
-				+ storeID 
-				+ ", @inventoryids)"
-				+ "}"
-				;
+		int filmID = Integer.valueOf(
+				this.db.executeSingleCell(FILM_ID_SQL + film + "'"));
+		String[] params = {"p_film_id", "p_store_id"};
+		Object[] inputs = {filmID, storeID};
+		int[] inTypes = {Types.INTEGER, Types.INTEGER};
 		String[] outNames = {"p_film_count"};
-		DataRow[] dra = db.ExecuteCall(sql, outNames);
-		String[] sa = new String[dra.length];
-		for(int i = 0 ; i < dra.length ; i++) {
-			sa[i] = dra[i].getData()[0];
+		int[] outTypes = {Types.INTEGER};
+		DataRow[] data = db.executeCall(FIS_CALL, params, inputs, inTypes, outTypes, outNames);
+		String[] inventoryIDs = new String[data.length];
+		for(int i = 0 ; i < data.length ; i++) {
+			inventoryIDs[i] = data[i].getData()[0];
 		}
-		return sa;
+		return inventoryIDs;
 	}
 
 	public String[] getCities() {
 		var QUERY = "select city from sakila.city order by city desc limit 10;";
-		return db.ExecuteSingleColumn(QUERY);
+		return db.executeSingleColumn(QUERY);
 	}
 
 
