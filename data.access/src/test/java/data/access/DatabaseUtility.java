@@ -13,7 +13,7 @@ public class DatabaseUtility implements DatabaseAccessor {
 
 	public DataRow[] executeQuery(String sql) {
 
-		try(Connection connection = DriverManager.getConnection(DB_URL);
+		try(Connection connection = DriverManager.getConnection(this.DB_URL);
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery(sql);) {
 
@@ -53,7 +53,7 @@ public class DatabaseUtility implements DatabaseAccessor {
 
 	public DataRow[] executeCall(String call, String[] paramNames, Object[] inputs, int[] inputTypes, String[] outputNames, int[] outputTypes) {
 
-		try (Connection connecction = DriverManager.getConnection(DB_URL);
+		try (Connection connecction = DriverManager.getConnection(this.DB_URL);
 				CallableStatement statement = connecction.prepareCall(call);) {
 
 			for (int i = 0 ; i < inputs.length ; i++) {
