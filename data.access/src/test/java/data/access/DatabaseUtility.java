@@ -1,107 +1,81 @@
 package data.access;
+
 import java.sql.*;
 import java.util.ArrayList;
 
-
 public class DatabaseUtility implements DatabaseAccessor {
 
-	static final String DB_URL = "jdbc:mysql://localhost:3306/sakila";
-	static final String USER = "root";
-	static final String PASS = "password";
+	private String DB_URL;
+
+	public DatabaseUtility(String DB_URL) {
+		this.DB_URL = DB_URL;
+	}
 
 	public DataRow[] executeQuery(String sql) {
-		
-		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(sql);) {
-			
-			DataRow[] dra = null;
+
+		try(Connection connection = DriverManager.getConnection(DB_URL);
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery(sql);) {
+
+			DataRow[] dataArray = null;
 			try {
-				dra = ResultSetToDataMatrix(rs);
+				dataArray = ResultSetToDataMatrix(resultSet);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
-			return dra;
-			
+			resultSet.close();
+			return dataArray;
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
 		return null;
 	}
-	
+
 	public String executeSingleCell(String sql) {
 
-		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(sql);) {
-			
-			String s = null;
-			
-			if(rs.next()) {
-				s=  rs.getString(1);
-			}
-			
-			rs.close();
-			return s;
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} 
-		return null;
+		DataRow[] data = executeQuery(sql);
+		var stringData = data[0].getValueFromColumn(1);
+		return stringData;
 	}
 
 	public String[] executeSingleColumn(String sql) {
-		
-		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(sql);) {
-			
-			ArrayList<String> outputList = new ArrayList<String>();
-			String s;
-			
-			while(rs.next()) {
-				s = rs.getString(1);
-				outputList.add(s);
-			}
-			
-			rs.close();
-			return outputList.toArray(new String[outputList.size()]);
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} 
-		return null;
+
+		DataRow[] data = executeQuery(sql);
+		var stringArray = new String[data.length];
+		for(var i = 0 ; i < data.length ; i++) {
+			stringArray[i] = data[i].getValueFromColumn(1);
+		}
+		return stringArray;
+
 	}
 
-	public DataRow[] executeCall(
-			String call, 
-			String[] paramNames, Object[] inputs, int[] inputTypes, 
-			String[] outputNames, int[] outputTypes 
-			) {
+	public DataRow[] executeCall(String call, String[] paramNames, Object[] inputs, int[] inputTypes, String[] outputNames, int[] outputTypes) {
 
-		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			CallableStatement stmt = conn.prepareCall(call);) {
-			
+		try (Connection connecction = DriverManager.getConnection(DB_URL);
+				CallableStatement statement = connecction.prepareCall(call);) {
+
 			for (int i = 0 ; i < inputs.length ; i++) {
-				stmt.setObject(paramNames[i], inputs[i], inputTypes[i]);
+				statement.setObject(paramNames[i], inputs[i], inputTypes[i]);
 			}
-			
-			for (int i = 1 ; i <= outputTypes.length ; i++) {
-				stmt.registerOutParameter(i+inputs.length, outputTypes[i-1]);
+
+			for (int i = 0 ; i < outputTypes.length ; i++) {
+				statement.registerOutParameter(inputs.length+i+1, outputTypes[i]);
 			}
-			
-			boolean b = stmt.execute();
-			if(b) {
-				
-				ResultSet rs = stmt.getResultSet();
-				
-				DataRow[] dra = null;
+
+			boolean hasExecuted = statement.execute();
+			if(hasExecuted) {
+
+				ResultSet resultSet = statement.getResultSet();
+
+				DataRow[] dataMatrix = null;
 				try {
-					dra = ResultSetToDataMatrix(rs);
+					dataMatrix = ResultSetToDataMatrix(resultSet);
 				} catch (Exception e) {
 					e.printStackTrace();
 				} 
-				return dra;
+				return dataMatrix;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -109,31 +83,33 @@ public class DatabaseUtility implements DatabaseAccessor {
 		return null;
 	}
 
-	public static DataRow[] ResultSetToDataMatrix(ResultSet rs) {
-		
+	public static DataRow[] ResultSetToDataMatrix(ResultSet resultSet) {
+
 		try {
-			
-			int numberOfCols = rs.getMetaData().getColumnCount();
-			ArrayList<DataRow> outputList = new ArrayList<DataRow>();
-			
-			while(rs.next()) {
-				String[] currentRowData = new String[numberOfCols];
-				
-				for(int i = 0; i < numberOfCols; i++) {
-					currentRowData[i] = rs.getString(i+1);
-				}
-				
-				outputList.add(new StringRow(currentRowData));
+			var metadata = resultSet.getMetaData();
+			int numberOfCols = metadata.getColumnCount();
+			var columnNames = new String[numberOfCols];
+			for(var i = 0 ; i < numberOfCols ; i++) {
+				columnNames[i] = metadata.getColumnName(i+1);
 			}
-			
-			rs.close();			
-			return outputList.toArray(new DataRow[outputList.size()]);
-			
+
+			var outputList = new ArrayList<ResultDataRow>();
+
+			while(resultSet.next()) {
+				var row = new ResultDataRow();
+
+				for(int i = 0; i < numberOfCols; i++) {
+					row.setColumn(columnNames[i], resultSet.getString(i+1));
+				}			
+
+				outputList.add(row);
+			}			
+			return outputList.toArray(DataRow[]::new);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
 		return null;
 	}
-
 
 }

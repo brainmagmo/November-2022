@@ -9,15 +9,12 @@ public class JdbcTests {
 
 	@BeforeMethod
 	public void Setup() {
-		DatabaseUtility accessor = new DatabaseUtility();
-		this.sQueries = new SakilaQueries(accessor);
+		this.sQueries = new SakilaQueries();
 	}
 	
 	//A1. Get 10 cities in descending alphabetical order. PASS
 	@Test
 	public void canGetCities() {
-		
-		String[] result = this.sQueries.getCities();
 		
 		String[] expected = {
 				"Ziguinchor",
@@ -32,27 +29,27 @@ public class JdbcTests {
 				"Yuzhou"
 				};
 		
-		Assert.assertEquals(result, expected);
+		var result = this.sQueries.getCities();
+		
+		Assert.assertEquals(result, expected, "the query should return 10 cities");
 	}
 	
 	//B3. Get the highest payment amount. PASS
 	@Test
 	public void canGetHighestPayment() {
 		
+		String expected = "11.99";
+		
 		var result = this.sQueries.getHighestPayment();
 		
-		var expected = "11.99";
-		
-		Assert.assertEquals(result, expected);
+		Assert.assertEquals(result, expected, "the query should return a payment amount");
 	}
 	
 	//C6. Use a View to get the film info for actor Bob Fawcett. PASS
 	@Test
 	public void canUseView() {
-		
-		var result = this.sQueries.getFilmInfo("Bob Fawcett");
-		
-		var expected = "Action: DARN FORRESTER; "
+				
+		String expected = "Action: DARN FORRESTER; "
 				+ "Animation: DARES PLUTO, LAWLESS VISION, OSCAR GOLD; "
 				+ "Children: CIRCUS YOUTH; "
 				+ "Classics: DYNAMITE TARZAN; "
@@ -67,19 +64,21 @@ public class JdbcTests {
 				+ "Sci-Fi: RAGING AIRPLANE; "
 				+ "Travel: LEATHERNECKS DWARFS, SHAWSHANK BUBBLE"
 				;
-		
-		Assert.assertEquals(result, expected);
+	
+		var result = this.sQueries.getFilmInfo("Bob Fawcett");
+	
+		Assert.assertEquals(result, expected, "the query should return a film info string");
 	}
 	
 	//D7. Use a Stored Procedure to get the 4 inventory ids for the film "Alien Center" at Store #2. PASS 
 	@Test
 	public void canUseStoredProc() {
 		
-		String[] result = this.sQueries.getInventoryIds("Alien Center", 2);
-		
 		String[] expected = {"73","74","75","76"};
 		
-		Assert.assertEquals(result, expected);
+		var result = this.sQueries.getInventoryIds("Alien Center", 2);
+		
+		Assert.assertEquals(result, expected, "the query should return inventory IDs");
 		
 	}
 

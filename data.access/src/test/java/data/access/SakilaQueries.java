@@ -24,9 +24,16 @@ public class SakilaQueries {
 			+ "ORDER BY city DESC "
 			+ "LIMIT 10;"
 			;
+	static final String DEFAULT_URL = ""
+			+ "jdbc:mysql://localhost:3306/sakila"
+			+ "?user=root&password=password";
 
-	public SakilaQueries(DatabaseAccessor accessor) {
-		this.db = accessor;
+	public SakilaQueries() {
+		this.db = new DatabaseUtility(DEFAULT_URL);
+	}
+
+	public SakilaQueries(DatabaseAccessor db) {
+		this.db = db;
 	}
 
 	public String[] getCities() {
@@ -66,7 +73,7 @@ public class SakilaQueries {
 		
 		DataRow[] data = db.executeCall(FIS_CALL, params, inputs, inTypes, outNames, outTypes);
 		
-		String[] inventoryIDs = new String[data.length];
+		var inventoryIDs = new String[data.length];
 		
 		for(int i = 0 ; i < data.length ; i++) {
 			inventoryIDs[i] = data[i].getData()[0];
