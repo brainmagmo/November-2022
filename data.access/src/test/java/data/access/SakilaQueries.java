@@ -15,8 +15,8 @@ public class SakilaQueries {
 			+ "{CALL sakila.film_in_stock(? , ? , ?)}"
 			;
 	static final String PAYMENT_SQL = ""
-			+ "SELECT MAX(p.amount) AS 'MaxAmount'"
-			+ " FROM sakila.payment p;"
+			+ "SELECT MAX(p.amount) AS 'MaxAmount' "
+			+ "FROM sakila.payment p;"
 			;
 	static final String CITY_SQL = ""
 			+ "SELECT city "
@@ -26,7 +26,8 @@ public class SakilaQueries {
 			;
 	static final String DEFAULT_URL = ""
 			+ "jdbc:mysql://localhost:3306/sakila"
-			+ "?user=root&password=password";
+			+ "?user=root&password=password"
+			;
 
 	public SakilaQueries() {
 		this.db = new DatabaseUtility(DEFAULT_URL);
@@ -46,14 +47,15 @@ public class SakilaQueries {
 
 	public String getFilmInfo(String actorName) {
 		String[] names = actorName.split(" ");
-		String sql = "SELECT film_info"
-				+ " FROM sakila.actor_info"
-				+ " WHERE first_name = '" 
+		String sql = ""
+				+ "SELECT film_info "
+				+ "FROM sakila.actor_info "
+				+ "WHERE first_name = '" 
 				+ names[0] 
-						+ "' AND last_name = '" 
-						+ names[names.length-1]
-								+ "';"
-								;
+				+ "' AND last_name = '" 
+				+ names[names.length-1]
+				+ "';"
+				;
 		return db.executeSingleCell(sql);
 	}
 
@@ -61,17 +63,15 @@ public class SakilaQueries {
 
 		int filmID = Integer.valueOf(
 				this.db.executeSingleCell(
-						FILM_ID_SQL + film + "'")
-					)
-				;
+						FILM_ID_SQL + film + "'"));
 		
-		String[] params = {"p_film_id", "p_store_id"};
+		String[] inputParams = {"p_film_id", "p_store_id"};
 		Object[] inputs = {filmID, storeID};
 		int[] inTypes = {Types.INTEGER, Types.INTEGER};
-		String[] outNames = {"p_film_count"};
+		String[] outputParams = {"p_film_count"};
 		int[] outTypes = {Types.INTEGER};
 		
-		DataRow[] data = db.executeCall(FIS_CALL, params, inputs, inTypes, outNames, outTypes);
+		DataRow[] data = db.executeCall(FIS_CALL, inputParams, inputs, inTypes, outputParams, outTypes);
 		
 		var inventoryIDs = new String[data.length];
 		
