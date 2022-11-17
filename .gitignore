@@ -26,3 +26,5 @@ hs_err_pid*
 */test-output/*
 
 !.project
+!.classpath
+!pom.xml
