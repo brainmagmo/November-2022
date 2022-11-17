@@ -1,6 +1,6 @@
 Test Suite: Ampeg.com Manual Tests
 Pre-Conditions: Before each test, Open ampeg.com
-Environment: Using in Chrome on a laptop running Windows 10 in the US 
+Environment: Using in Chrome (fullscreen 1920x1080) on a laptop running Windows 10 in the US 
 
 Test ID: AMT_001
 Title: IsMyInfoSold
@@ -51,19 +51,33 @@ Steps:
 5) Click blue 'ADD TO CART' button
 Expected Result:
 Shopping Cart icon in top right says '1' (or more)
+on any site https://shop.ampeg.com/* such as https://shop.ampeg.com/software/
+and when clicked shows t shirt in cart
+on site https://shop.ampeg.com/checkout/cart/
 
 Test ID: AMT_005
-Title: 
-Summary: 
+Title: BrokenLink
+Summary: Discover a missing file (5 pages)
 Steps:
-1)
-2)
+1) Click 'Technical Library' at the bottom of the page to load ui-bare file directory
+2) Click 'Schematics/'
+3) Click 'E Series/'
+4) Click 'ET-1B (Echo Twin)/'
+5) Click 'Echo Twin Schematic Part 1.gif'
 Expected Result:
+"Page not found
+We're sorry, the page you are looking for is currently unavailable
+Please try again later"
+on site https://ampeg.com/support/files/Schematics/E%20Series/ET-1B%20(Echo%20Twin)/Echo%20Twin%20Schematic%20Part%201.gif
 
 Test ID: AMT_006
-Title: 
-Summary: 
+Title: Ukraine
+Summary: Find information on a distributor in Ukraine (2 pages)
 Steps:
-1)
-2)
+1) Click 'International Distributors' at the bottom of the page
+2) Click 'U' to jump to U section
+3) Click 'Ukraine' to expand item
+4) Click 'Website: http://www.solo.com.ua'
 Expected Result:
+Navigate to site https://solo.com.ua/
+(maybe enjoy interactive css image after clearing heartwarming message popup)
