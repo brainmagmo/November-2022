@@ -1,0 +1,22 @@
+CSS
+
+1. #userName
+2. .btn-primary
+3. footer>span
+4. ul#nav>li
+5. option[value='4']
+
+JS
+
+6. $("#sliderValue")[0].getAttribute('value')
+7. $("#userName")[0].setAttribute('value', 'FooestBarman')
+
+XPATH
+
+1. //*[@id='userName']
+2. //button
+3. //div[contains(@class,"ReactTable")]//div[@class="rt-td" and text()="Vega"]
+4. //input[@id="impressiveRadio"]/..
+5. //input[@id="impressiveRadio"]/ancestor::div
+6. //input[@id="impressiveRadio"]/../*[not(@id="impressiveRadio")]
+7. //button[contains(text(),'Click')]
