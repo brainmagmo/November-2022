@@ -3,8 +3,8 @@ Pre-Conditions: Before each test, Open ampeg.com
 Environment: Using in Chrome (fullscreen 1920x1080) on a laptop running Windows 10 in the US 
 
 Test ID: AMT_001
-Title: IsMyInfoSold
-Summary: Find out if the site sells personal information (1 page)
+Title: Is My Info Sold
+Summary: Verify that site discloses that they do not sell personal information (1 page)
 Steps:
 1) Scroll to bottom of webpage
 2) Click 'Privacy Policy' 
@@ -14,7 +14,7 @@ Read "In the preceding twelve (12) months, we have not sold any personal informa
 on site https://yamahaguitargroup.com/privacypolicy/
 
 Test ID: AMT_002
-Title: CanDownloadUserManual
+Title: Can Download User Manual
 Summary: Download a user manual (3 pages)
 Steps:
 1) Click 'Products' from top bar or from hamburger drop down
@@ -28,7 +28,7 @@ Download "Heritage 50th Anniversary SVT Quick Start Guide - English.pdf"
 from site https://ampeg.com/data/6/0a020a40dc385e0b9cc618bd0/application/pdf/Heritage%2050th%20Anniversary%20SVT%20Quick%20Start%20Guide%20-%20English%20.pdf
 
 Test ID: AMT_003
-Title: CanFindEndorsements
+Title: Can Find Endorsements
 Summary: Find out what gear an artist is using (2 pages)
 Steps:
 1) Click 'Artists' from top bar or from hamburger drop down
@@ -41,7 +41,7 @@ SVT-410HLF"
 on site https://ampeg.com/artists/364/Zev%20Katz
 
 Test ID: AMT_004
-Title: CanShop
+Title: Can Shop
 Summary: Add an item to the shopping cart (3 pages)
 Steps:
 1) Scroll down and click 'Shop Now' below 'Featured Artist' and above the youtube video
@@ -56,7 +56,7 @@ and when clicked shows t shirt in cart
 on site https://shop.ampeg.com/checkout/cart/
 
 Test ID: AMT_005
-Title: BrokenLink
+Title: Broken Link
 Summary: Discover a missing file (5 pages)
 Steps:
 1) Click 'Technical Library' at the bottom of the page to load ui-bare file directory
