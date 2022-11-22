@@ -1,22 +1,50 @@
 CSS
 
-1. #userName
-2. .btn-primary
-3. footer>span
+a selector that will return the ‘Full Name’ textbox using the ID attribute:
+1. input#userName
+
+a selector that will return all 3 buttons shown
+2. button.btn-primary
+
+a selector that will return the span element in the footer
+3. footer span
+
+a selector that will return the 3 listitem elementsin the unordered list
 4. ul#nav>li
-5. option[value='4']
+
+a selector that will get the option elementwhere value = 4
+5. select#oldSelectMenu option[value='4']
 
 JS
+the JavaScript to get the value for the element with id=sliderValue
+6. $("input#sliderValue")[0].getAttribute('value')
+6. document.getElementById("sliderValue").value
 
-6. $("#sliderValue")[0].getAttribute('value')
-7. $("#userName")[0].setAttribute('value', 'FooestBarman')
+the JavaScript to seet the value for the element with id=username
+7. $("input#userName")[0].setAttribute('value', 'FooestBarman')
+7. document.getElementById("userName").setAttribute("value", "foobarwoman")
 
 XPATH
 
-1. //*[@id='userName']
+the xpath that will return the ‘Full Name’textbox using the ID attribute
+1. //input[@id='userName']
+
+ the xpath that will return all elements on the page with the ‘button’ tag
 2. //button
+
+the xpath that will return the div with text of ‘Vega’. Ensure to narrow the scope of your xpath to the ReactTableandensure that your xpath is limited to returningcells only
 3. //div[contains(@class,"ReactTable")]//div[@class="rt-td" and text()="Vega"]
+
+the xpath that will return the parent element for the radio button with id=‘impressiveRadio’
 4. //input[@id="impressiveRadio"]/..
+4. //input[@id="impressiveRadio"]/parent::*
+
+ the xpath that will return all DIV ancestors for the radio button with id=‘impressiveRadio’
 5. //input[@id="impressiveRadio"]/ancestor::div
+
+the xpath that will return the sibling for the radio button with id=‘impressiveRadio’. Do not use the sibling axes
 6. //input[@id="impressiveRadio"]/../*[not(@id="impressiveRadio")]
+6. //input[@id="impressiveRadio"]/parent::div/label
+
+the xpath that will return all buttons containing the value “Click”.
 7. //button[contains(text(),'Click')]
