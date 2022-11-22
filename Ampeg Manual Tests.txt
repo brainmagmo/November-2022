@@ -1,10 +1,10 @@
 Test Suite: Ampeg.com Manual Tests
-Pre-Conditions: Before each test, Open ampeg.com
 Environment: Using in Chrome (fullscreen 1920x1080) on a laptop running Windows 10 in the US 
 
 Test ID: AMT_001
 Title: Is My Info Sold
 Summary: Verify that site discloses that they do not sell personal information (1 page)
+Pre-Conditions: Open ampeg.com
 Steps:
 1) Scroll to bottom of webpage
 2) Click 'Privacy Policy' 
@@ -16,6 +16,7 @@ on site https://yamahaguitargroup.com/privacypolicy/
 Test ID: AMT_002
 Title: Can Download User Manual
 Summary: Download a user manual (3 pages)
+Pre-Conditions: Open ampeg.com
 Steps:
 1) Click 'Products' from top bar or from hamburger drop down
 2) Click the first series, 'Heritage Series'
@@ -30,6 +31,7 @@ from site https://ampeg.com/data/6/0a020a40dc385e0b9cc618bd0/application/pdf/Her
 Test ID: AMT_003
 Title: Can Find Endorsements
 Summary: Find out what gear an artist is using (2 pages)
+Pre-Conditions: Open ampeg.com
 Steps:
 1) Click 'Artists' from top bar or from hamburger drop down
 2) Scroll down and click last alphabetical name 'Zev Katz'
@@ -43,6 +45,7 @@ on site https://ampeg.com/artists/364/Zev%20Katz
 Test ID: AMT_004
 Title: Can Shop
 Summary: Add an item to the shopping cart (3 pages)
+Pre-Conditions: Open ampeg.com
 Steps:
 1) Scroll down and click 'Shop Now' below 'Featured Artist' and above the youtube video
 2) Mousover 'Merch' at the top right then click the first option 'Shirts'
@@ -58,6 +61,7 @@ on site https://shop.ampeg.com/checkout/cart/
 Test ID: AMT_005
 Title: Broken Link
 Summary: Discover a missing file (5 pages)
+Pre-Conditions: Open ampeg.com
 Steps:
 1) Click 'Technical Library' at the bottom of the page to load ui-bare file directory
 2) Click 'Schematics/'
