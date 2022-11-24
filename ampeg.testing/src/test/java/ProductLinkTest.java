@@ -15,7 +15,7 @@ public class ProductLinkTest extends AmpegTest {
 			  .getArtist();
 			  ;
 	  
-	  Assert.assertEquals(actualName,expected,"Test should find artist name");
+	  Assert.assertEquals(actualName, expected, "Test should find artist name");
   }
   
   @Test
