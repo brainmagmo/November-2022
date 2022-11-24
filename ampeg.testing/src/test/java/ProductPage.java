@@ -12,5 +12,12 @@ public class ProductPage extends PageObject {
 			.click();
 		return new ClassicSeriesPage(this.driver);
 	}
+
+	public HeritageSeriesPage openHeritageSeriesBassHeads() {
+		find(By.cssSelector("img[alt='Heritage Series: Bass heads & enclosures']"))
+		.click()
+		;
+		return new HeritageSeriesPage(this.driver);
+	}
 	
 }
