@@ -12,5 +12,5 @@ public class ProductPage extends PageObject {
 			.click();
 		return new ClassicSeriesPage(this.driver);
 	}
-
+	
 }

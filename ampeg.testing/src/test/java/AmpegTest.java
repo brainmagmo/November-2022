@@ -5,7 +5,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-
 public class AmpegTest {
 
 	protected WebDriver driver;
@@ -27,7 +26,8 @@ public class AmpegTest {
 		  this.driver = new ChromeDriver();
 		  this.driver.manage()
 			  .window()
-			  .maximize();
+			  //.maximize()
+			  ;
 		  this.driver.navigate()
 		  	  .to(url); 
 	  }
