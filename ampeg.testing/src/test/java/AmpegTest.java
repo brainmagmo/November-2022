@@ -1,3 +1,5 @@
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,17 +22,22 @@ public class AmpegTest {
 	  }
 
 	private void launchDriver(String url) {
-		  var chromeDpath = "C:\\Users\\trevo\\webdrivers\\chromedriver.exe";
-		  System.setProperty("webdriver.chrome.driver", chromeDpath);
-	  
-		  this.driver = new ChromeDriver();
-		  this.driver.manage()
-			  .window()
-			  //.maximize()
-			  ;
-		  this.driver.navigate()
-		  	  .to(url); 
-	  }
+		var chromeDpath = "C:\\Users\\trevo\\webdrivers\\chromedriver.exe";
+		System.setProperty("webdriver.chrome.driver", chromeDpath);
+
+		this.driver = new ChromeDriver();
+//		this.driver.manage()
+//			.window()
+//			.maximize()
+//			;
+		this.driver.manage()
+			.timeouts()
+			.implicitlyWait(10, TimeUnit.SECONDS)
+			;
+		this.driver.navigate()
+			.to(url)
+			; 
+	}
 
 	private void closeDriver() {
 		  if(this.driver != null) {
