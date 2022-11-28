@@ -9,8 +9,7 @@ public class SchematicPart1Page extends PageObject {
 
 	public String getRegularText() {
 		return find(By.tagName("p"))
-				.getText()
-				;
+				.getText();
 	}
 
 }

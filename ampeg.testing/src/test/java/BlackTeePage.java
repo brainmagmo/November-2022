@@ -10,11 +10,10 @@ public class BlackTeePage extends PageObject {
 
 	public BlackTeePage addXLtoCart() {
 		new Select(find(By.cssSelector("select#attribute178")))
-		.selectByVisibleText("XL")
-		;
+		.selectByVisibleText("XL");
 		find(By.cssSelector("button#product-addtocart-button"))
-		.click()
-		;
+		.click();
+		
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
@@ -26,8 +25,7 @@ public class BlackTeePage extends PageObject {
 
 	public String getCartCount() {
 		return find(By.cssSelector("span.counter-number"))
-				.getText()
-				;
+				.getText();
 	}
 
 }

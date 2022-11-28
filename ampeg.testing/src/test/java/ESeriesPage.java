@@ -9,8 +9,7 @@ public class ESeriesPage extends PageObject {
 
 	public EchoTwinPage openEchoTwin() {
 		find(By.linkText("ET-1B (Echo Twin)/"))
-		.click()
-		;
+		.click();
 		return new EchoTwinPage(this.driver);
 	}
 

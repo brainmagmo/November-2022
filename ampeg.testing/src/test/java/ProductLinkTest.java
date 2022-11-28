@@ -11,8 +11,7 @@ public class ProductLinkTest extends AmpegTest {
 				.openProductPage()
 				.openClassicSeriesBassHeads()
 				.openSVT410HLF()
-				.getArtist();
-		;
+				.getArtist();		
 
 		Assert.assertEquals(actualName, expected, "Test should find artist name");
 	}
@@ -28,8 +27,7 @@ public class ProductLinkTest extends AmpegTest {
 			.openFirstLearnMore()
 			.openManuals()
 			.openFirstPDF()
-			.getURL();
-			;
+			.getURL();			
 
 		Assert.assertEquals(actual,expectedURL,"Test should find pull up the pdf for the manual");
 	}
@@ -44,8 +42,7 @@ public class ProductLinkTest extends AmpegTest {
 				.openShirts()
 				.openBlackTee()
 				.addXLtoCart()
-				.getCartCount()
-				;
+				.getCartCount();				
 
 		Assert.assertEquals(actualText,expected,"Test should find that items were visibly added to cart");
 	}
@@ -55,8 +52,8 @@ public class ProductLinkTest extends AmpegTest {
 
 		String expected = ""
 				+ "We're sorry, the page you are looking for is currently unavailable\n"
-				+ "Please try again later"
-				;
+				+ "Please try again later";
+
 		
 		String actualText = new HomePage(this.driver)
 				.openTechnicalLibrary()
@@ -64,8 +61,7 @@ public class ProductLinkTest extends AmpegTest {
 				.openESeries()
 				.openEchoTwin()
 				.openSchematicPart1()
-				.getRegularText()
-				;
+				.getRegularText();
 		
 		Assert.assertEquals(actualText,expected,"Test should find dead link page");
 	}

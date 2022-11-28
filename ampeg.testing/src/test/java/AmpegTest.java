@@ -26,17 +26,13 @@ public class AmpegTest {
 		System.setProperty("webdriver.chrome.driver", chromeDpath);
 
 		this.driver = new ChromeDriver();
-//		this.driver.manage()
-//			.window()
-//			.maximize()
-//			;
+
 		this.driver.manage()
 			.timeouts()
-			.implicitlyWait(10, TimeUnit.SECONDS)
-			;
+			.implicitlyWait(10, TimeUnit.SECONDS);
+		
 		this.driver.navigate()
-			.to(url)
-			; 
+			.to(url); 
 	}
 
 	private void closeDriver() {

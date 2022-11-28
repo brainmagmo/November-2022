@@ -9,8 +9,7 @@ public class HeritageSeriesPage extends PageObject {
 
 	public Heritage50thAnniversarySVTPage openFirstLearnMore() {
 		find(By.cssSelector("#first-prod div.title a"))
-		.click()
-		;
+		.click();
 		return new Heritage50thAnniversarySVTPage(this.driver);
 	}
 

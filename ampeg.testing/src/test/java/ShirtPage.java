@@ -9,8 +9,7 @@ public class ShirtPage extends PageObject {
 
 	public BlackTeePage openBlackTee() {
 		find(By.cssSelector("img[alt='Classic Tee (Black)']"))
-		.click()
-		;
+		.click();
 		return new BlackTeePage(this.driver);
 	}
 

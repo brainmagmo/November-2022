@@ -9,8 +9,7 @@ public class TechnicalLibraryPage extends PageObject {
 
 	public SchematicsPage openSchematics() {
 		find(By.linkText("Schematics/"))
-		.click()
-		;
+		.click();
 		return new SchematicsPage(this.driver);
 	}
 

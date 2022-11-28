@@ -9,8 +9,7 @@ public class SchematicsPage extends PageObject {
 
 	public ESeriesPage openESeries() {
 		find(By.linkText("E Series/"))
-		.click()
-		;
+		.click();
 		return new ESeriesPage(this.driver);
 	}
 

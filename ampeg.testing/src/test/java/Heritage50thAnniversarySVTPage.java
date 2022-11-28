@@ -9,8 +9,7 @@ public class Heritage50thAnniversarySVTPage extends PageObject {
 
 	public HeritageManualsPage openManuals() {
 		find(By.linkText("MANUALS"))
-		.click()
-		;
+		.click();
 
 		return new HeritageManualsPage(this.driver);
 	}

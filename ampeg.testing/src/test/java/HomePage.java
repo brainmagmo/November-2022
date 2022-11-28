@@ -16,15 +16,13 @@ public class HomePage extends PageObject {
 
 	public ShopPage openShop() {
 		find(By.linkText("SHOP NOW"))  
-		.click()
-		;
+		.click();
 		return new ShopPage(this.driver);
 	}
 
 	public TechnicalLibraryPage openTechnicalLibrary() {
 		find(By.linkText("Technical Library"))
-		.click()
-		;
+		.click();
 		return new TechnicalLibraryPage(this.driver);
 	}
 }

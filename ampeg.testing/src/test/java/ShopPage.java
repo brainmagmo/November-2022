@@ -14,8 +14,7 @@ public class ShopPage extends PageObject {
 		WebElement merch = find(By.cssSelector("a#ui-id-5"));
 		mouse.moveToElement(merch).perform();
 		find(By.cssSelector("a#ui-id-15"))
-		.click()
-		;
+		.click();
 		return new ShirtPage(this.driver);
 	}
 
