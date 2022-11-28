@@ -1,6 +1,6 @@
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class ChromeWebDriver extends DriverManager {
+public class ChromeDriverManager extends DriverManager {
 
 	@Override
 	public void createDriver() {

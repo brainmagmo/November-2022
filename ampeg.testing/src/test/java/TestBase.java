@@ -1,6 +1,6 @@
 
 public abstract class TestBase {
 	
-	DriverManagerFactory dmf;
+	DriverManagerFactory factory;
 
 }
