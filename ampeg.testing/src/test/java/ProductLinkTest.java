@@ -38,15 +38,15 @@ public class ProductLinkTest extends AmpegTest {
 	public void addItemToShoppingCart() {
 
 		String expected = "1";
-		
-		String actualText = new HomePage(this.driver)
+
+		String cartCount = new HomePage(this.driver)
 				.openShop()
 				.openShirts()
 				.openBlackTee()
-				.addXLtoCart()
-				.getCartCount();				
-
-		Assert.assertEquals(actualText,expected,"Test should find that items were visibly added to cart");
+				.ableToAddXLtoCart()
+				.getText();
+		
+		Assert.assertEquals(cartCount,expected, "Test should find that items were visibly added to cart");
 	}
 
 	@Test

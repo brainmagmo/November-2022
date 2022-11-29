@@ -1,6 +1,5 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.*;
 
 public class BlackTeePage extends PageObject {
 
@@ -13,19 +12,26 @@ public class BlackTeePage extends PageObject {
 		.selectByVisibleText("XL");
 		find(By.cssSelector("button#product-addtocart-button"))
 		.click();
-		
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
+
 		return this;
 	}
 
 	public String getCartCount() {
 		return find(By.cssSelector("span.counter-number"))
 				.getText();
+	}
+	
+	public WebElement ableToAddXLtoCart() {
+		new Select(find(By.cssSelector("select#attribute178")))
+		.selectByVisibleText("XL");
+		find(By.cssSelector("button#product-addtocart-button"))
+		.click();
+		
+		var wait = new WebDriverWait(this.driver, 10);
+		By saysOne = By.xpath("//div[@class='minicart-wrapper']//span[@class='counter-number' and text()='1']");
+		var b = wait.until(ExpectedConditions.presenceOfElementLocated(saysOne));
+		
+		return b;
 	}
 
 }
