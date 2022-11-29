@@ -8,7 +8,7 @@ public class HeritageManualsPage extends PageObject {
 	}
 
 	public PDFpage openFirstPDF() {
-		find(By.xpath("//table/tbody/tr[1]/td[2]"))
+		find(By.xpath("//a[@class='ext_track']"))
 		.click();
 		return new PDFpage(this.driver);
 	}

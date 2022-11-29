@@ -19,7 +19,7 @@ public class ProductLinkTest extends AmpegTest {
 	@Test
 	public void downloadUserManual() {
 		
-		String expectedURL = "https://ampeg.com/data/6/0a020a40dc385e0b9cc618bd0/application/pdf/Heritage%2050th%20Anniversary%20SVT%20Quick%20Start%20Guide%20-%20English%20.pdf";
+		String expectedURL = "Heritage%2050th%20Anniversary%20SVT%20Quick%20Start%20Guide%20-%20English%20.pdf";
 
 		String actual = new HomePage(this.driver)
 			.openProductPage()
@@ -28,6 +28,8 @@ public class ProductLinkTest extends AmpegTest {
 			.openManuals()
 			.openFirstPDF()
 			.getURL();			
+		String[] splitURL = actual.split("/");
+		actual = splitURL[splitURL.length - 1];
 
 		Assert.assertEquals(actual,expectedURL,"Test should find pull up the pdf for the manual");
 	}
