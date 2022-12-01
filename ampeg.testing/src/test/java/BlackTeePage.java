@@ -21,7 +21,7 @@ public class BlackTeePage extends PageObject {
 				.getText();
 	}
 	
-	public WebElement ableToAddXLtoCart() {
+	public BlackTeePage ableToAddXLtoCart() {
 		new Select(find(By.cssSelector("select#attribute178")))
 		.selectByVisibleText("XL");
 		find(By.cssSelector("button#product-addtocart-button"))
@@ -29,9 +29,9 @@ public class BlackTeePage extends PageObject {
 		
 		var wait = new WebDriverWait(this.driver, 10);
 		By saysOne = By.xpath("//div[@class='minicart-wrapper']//span[@class='counter-number' and text()='1']");
-		var b = wait.until(ExpectedConditions.presenceOfElementLocated(saysOne));
+		wait.until(ExpectedConditions.presenceOfElementLocated(saysOne));
 		
-		return b;
+		return this;
 	}
 
 }

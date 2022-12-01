@@ -44,9 +44,9 @@ public class ProductLinkTest extends AmpegTest {
 				.openShirts()
 				.openBlackTee()
 				.ableToAddXLtoCart()
-				.getText();
+				.getCartCount();
 		
-		Assert.assertEquals(cartCount,expected, "Test should find that items were visibly added to cart");
+		Assert.assertEquals(cartCount, expected, "Test should find that items were visibly added to cart");
 	}
 
 	@Test
