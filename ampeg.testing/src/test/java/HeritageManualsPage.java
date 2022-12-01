@@ -1,15 +1,19 @@
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 
 public class HeritageManualsPage extends PageObject {
+	
+	@FindBy(how=How.XPATH , using="//a[@class='ext_track']")
+	WebElement pdfLink;
 
 	public HeritageManualsPage(WebDriver driver) {
 		super(driver);
 	}
 
 	public PDFpage openFirstPDF() {
-		find(By.xpath("//a[@class='ext_track']"))
-		.click();
+		pdfLink.click();
 		return new PDFpage(this.driver);
 	}
 

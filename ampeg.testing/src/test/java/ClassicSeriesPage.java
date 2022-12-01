@@ -1,15 +1,17 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
 
 public class ClassicSeriesPage extends PageObject {
+		
+	@FindBy(how=How.LINK_TEXT , using="SVT-410HLF")
+	WebElement productLink;
 
 	public ClassicSeriesPage(WebDriver driver) {
 		super(driver);
 	}
 
 	public SVT410HLFPage openSVT410HLF() {
-		find(By.linkText("SVT-410HLF"))
-			.click();
+		productLink.click();
 		return new SVT410HLFPage(this.driver);
 	}
 

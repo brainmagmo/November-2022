@@ -2,17 +2,16 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ProductLinkTest extends AmpegTest {
-	@Test
-	public void ensureArtistOnProductDetailsPage() {
-		
+	
+	//page no longer exists
+	@Deprecated
+	public void ensureArtistOnProductDetailsPage() {		
 		String expected = "Bootsy Collins";
-
 		String actualName = new HomePage(this.driver)
 				.openProductPage()
 				.openClassicSeriesBassHeads()
 				.openSVT410HLF()
 				.getArtist();		
-
 		Assert.assertEquals(actualName, expected, "Test should find artist name");
 	}
 
