@@ -2,13 +2,7 @@ import org.testng.annotations.Test;
 import org.testng.Assert;
 
 public class ControlExtensionTests extends foundation.TestBase {
-	  /*
-	   * Use abstract classes where needed (TestBase, PageObjectBase, ControlExtensionBase)
-	DRY (Do not Repeat Yourself)
-	SOLID (SOLID Principles)
-	YAGNI (You Ain't Gonna Need It)
-	Include synchronization. Test should pass when Running or Debugging. 
-	  */
+
   @Test
   public void canSelectYes() {
 	  var label = "Yes";
@@ -19,7 +13,7 @@ public class ControlExtensionTests extends foundation.TestBase {
 	  yesButton.select();
 	  var selected = radioGroup.getSelected();
 	  
-	  Assert.assertNotNull(selected, "The selected button should exist");
+	  Assert.assertNotNull(selected, "The selected button should exist.");
 	  Assert.assertEquals(selected.getText(), label, "The selected button should be the Yes button.");
   }
   
@@ -33,8 +27,8 @@ public class ControlExtensionTests extends foundation.TestBase {
 	  impressiveButton.select();
 	  var selected = radioGroup.getSelected();
 	  
-	  Assert.assertNotNull(selected, "The selected button should exist");
-	  Assert.assertEquals(selected.getText(), label, "The selected button should be the Impressive button");
+	  Assert.assertNotNull(selected, "The selected button should exist.");
+	  Assert.assertEquals(selected.getText(), label, "The selected button should be the Impressive button.");
   }
   
   @Test
@@ -47,7 +41,7 @@ public class ControlExtensionTests extends foundation.TestBase {
 	  noButton.select();
 	  var selected = radioGroup.getSelected();
 
-	  Assert.assertNotNull(noButton, "The no button should exist");
+	  Assert.assertNotNull(noButton, "The no button should exist.");
 	  Assert.assertNull(selected, "The no button should not be able to be selected.");
   }
 
@@ -62,7 +56,7 @@ public class ControlExtensionTests extends foundation.TestBase {
 	  link.click();
 	  var results = page.getResults();
 
-	  Assert.assertEquals(results, expectedResultMessage, "The api link click should return a success message");
+	  Assert.assertEquals(results, expectedResultMessage, "The api link click should return a success message.");
   }
 
   /*

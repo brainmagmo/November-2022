@@ -11,10 +11,11 @@ public class SanityTests extends TestBase {
 		// If this doesn't pass then nothing will
 	}
 
+	@SuppressWarnings("unused")
 	@Test
 	public void canUseVar() {
-		String myString = "Taylo  rDennis";
-		var myVarString = "Dennis";			  
+		String myString = "Trevo rKleinstu ber";
+		var myVarString = "Trevor";			  
 	}
 	
 	@Test
