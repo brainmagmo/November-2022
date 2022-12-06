@@ -12,6 +12,7 @@ public abstract class TestBase {
 	public void setup() {
 		var browserType = "chrome";
 		this.manager = DriverManagerFactory.getManager(browserType);
+		this.manager.supressWarnings();
 		this.manager.createDriver();
 		this.manager.setImplicitWait(10);
 		this.driver = manager.getDriver();

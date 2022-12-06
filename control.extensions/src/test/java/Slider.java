@@ -4,11 +4,12 @@ import org.openqa.selenium.WebElement;
 
 public class Slider extends ControlExtensionBase {
 	
-	WebElement mappedElement;
+	private WebElement mappedElement;
 
 	public Slider(WebElement mappedElement) {
 		this.mappedElement = mappedElement;
 	}
+	
 	public void setValue(int value) {
 		var slide = this.mappedElement.findElement(By.tagName("input"));
 		var currentValue = Integer.parseInt(getValue());
@@ -23,17 +24,10 @@ public class Slider extends ControlExtensionBase {
 	
 	public void setValue(String value) {
 		this.setValue(Integer.parseInt(value));
-
 	}
 
 	public String getValue() {
 		var value = this.mappedElement.findElement(By.id("sliderValue"));
 		return value.getAttribute("value");
 	}
-/*
- * 
- * 	Should contain the following methods:
-
-		void setValue(String value)
-		String getValue() */
 }

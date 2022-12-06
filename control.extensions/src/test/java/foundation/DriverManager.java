@@ -20,13 +20,15 @@ public abstract class DriverManager {
 	protected void setDriver(WebDriver driver) {
 		this.driver = driver;
 	}
+	
+	protected abstract void supressWarnings();
 
-	protected DriverManager maximizeWindow() {
+	public DriverManager maximizeWindow() {
 		this.driver.manage().window().maximize();
 		return this;
 	}
 
-	protected DriverManager setImplicitWait(int i) {
+	public DriverManager setImplicitWait(int i) {
 		this.driver.manage().timeouts().implicitlyWait(i, TimeUnit.SECONDS);
 		return this;
 	};	

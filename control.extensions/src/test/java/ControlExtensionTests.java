@@ -1,5 +1,7 @@
 import org.testng.annotations.Test;
-import org.testng.Assert;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
 
 public class ControlExtensionTests extends foundation.TestBase {
 
@@ -13,8 +15,8 @@ public class ControlExtensionTests extends foundation.TestBase {
 	  yesButton.select();
 	  var selected = radioGroup.getSelected();
 	  
-	  Assert.assertNotNull(selected, "The selected button should exist.");
-	  Assert.assertEquals(selected.getText(), label, "The selected button should be the Yes button.");
+	  assertNotNull(selected, "The selected button should exist.");
+	  assertEquals(selected.getText(), label, "The selected button should be the Yes button.");
   }
   
   @Test
@@ -27,8 +29,8 @@ public class ControlExtensionTests extends foundation.TestBase {
 	  impressiveButton.select();
 	  var selected = radioGroup.getSelected();
 	  
-	  Assert.assertNotNull(selected, "The selected button should exist.");
-	  Assert.assertEquals(selected.getText(), label, "The selected button should be the Impressive button.");
+	  assertNotNull(selected, "The selected button should exist.");
+	  assertEquals(selected.getText(), label, "The selected button should be the Impressive button.");
   }
   
   @Test
@@ -41,8 +43,8 @@ public class ControlExtensionTests extends foundation.TestBase {
 	  noButton.select();
 	  var selected = radioGroup.getSelected();
 
-	  Assert.assertNotNull(noButton, "The no button should exist.");
-	  Assert.assertNull(selected, "The no button should not be able to be selected.");
+	  assertNotNull(noButton, "The no button should exist.");
+	  assertNull(selected, "The no button should not be able to be selected.");
   }
 
   @Test
@@ -56,7 +58,7 @@ public class ControlExtensionTests extends foundation.TestBase {
 	  link.click();
 	  var results = page.getResults();
 
-	  Assert.assertEquals(results, expectedResultMessage, "The api link click should return a success message.");
+	  assertEquals(results, expectedResultMessage, "The api link click should return a success message.");
   }
   
   @Test
@@ -69,7 +71,7 @@ public class ControlExtensionTests extends foundation.TestBase {
 	  slider.setValue(number);
 	  var value = slider.getValue();
 
-	  Assert.assertEquals(value, expected, "The slider should be set to 80.");
+	  assertEquals(value, expected, "The slider should be set to 80.");
   }
   
   @Test
@@ -81,7 +83,7 @@ public class ControlExtensionTests extends foundation.TestBase {
 	  slider.setValue(number);
 	  var value = slider.getValue();
 
-	  Assert.assertEquals(value, number, "The slider should be set to 17.");
+	  assertEquals(value, number, "The slider should be set to 17.");
   }
   
   @Test
@@ -94,7 +96,7 @@ public class ControlExtensionTests extends foundation.TestBase {
 	  slider.setValue(number);
 	  var value = slider.getValue();
 
-	  Assert.assertEquals(value, expected, "The slider should be set to 0.");
+	  assertEquals(value, expected, "The slider should be set to 0.");
   }
   
   @Test
@@ -102,30 +104,58 @@ public class ControlExtensionTests extends foundation.TestBase {
 	  var number = 100;
 	  var expected = Integer.toString(number);
 	  
-	  var page = new SliderPage(this.driver);
-	  var slider = page.getSlider();
+	  var slider = new SliderPage(this.driver).getSlider();
 	  slider.setValue(number);
 	  var value = slider.getValue();
 
-	  Assert.assertEquals(value, expected, "The slider should be set to 100.");
+	  assertEquals(value, expected, "The slider should be set to 100.");
   }
+  
+  @Test
+  public void canSelect() {
+	  var color = "Purple";
 
-  /*
+	  var dropdown = new SelectPage(this.driver).getSelectDropdown();
+	  dropdown.setValue(color);
+	  var value = dropdown.getValue();
 
-4. https://demoqa.com/select-menu
-Use Selenium 'Select' control extension to wrap the "Old Style Select Menu" dropdown/select list.
-Two test cases total. 
-a. Set a value (not the first or last in the list) then get the value
-b. Get all options as String[] (Because arrays are non-mutable)
+	  assertEquals(value, color, "The dropdown should be selected from.");
+  }
+  
+  @Test
+  public void canGetSelectOptions() {
+	  String[] colors = {"Red", "Blue", "Green", "Yellow", "Purple", "Black", "White", "Voilet", "Indigo", "Magenta", "Aqua"};
+	  
+	  var dropdown = new SelectPage(this.driver).getSelectDropdown();
+	  var options = dropdown.getOptions();
 
-Assert each value set.
-  */
-  /*
+	  assertEquals(options, colors, "The dropdown should be selected from.");
+  }
+  
+  @Test
+  public void canSelectEach() {
+	  String[] colors = {"Red", "Blue", "Green", "Yellow", "Purple", "Black", "White", "Voilet", "Indigo", "Magenta", "Aqua"};
+	  
+	  var dropdown = new SelectPage(this.driver).getSelectDropdown();
+	  for(var color: colors) {
+		  dropdown.setValue(color);
+		  var value = dropdown.getValue();
+	
+		  assertEquals(value, color, "The dropdown should be selected from.");
+	  }
+  }
+  
+  @Test
+  public void canMultiSelect() {
+	  String[] choices = {"Saab", "Opel"};
 
-4. https://demoqa.com/select-menu
-Create a MultiSelect Control Extension.
-One Test case total.
-a. Select 2 options from the list (not the first or last option).
-b. Get the selected values as String[].
-   */
+	  var multi = new SelectPage(this.driver).getMultiselect();
+	  for(var choice: choices) {
+		  multi.select(choice);
+	  }
+	  
+	  var values = multi.getSelected();
+
+	  assertEquals(values, choices, "The dropdown should be selected from.");
+  }
 }

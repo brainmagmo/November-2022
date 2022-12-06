@@ -19,5 +19,4 @@ public class LinksPage {
 		var msg = this.driver.findElement(By.id("linkResponse")).getText();
 		return msg;
 	}
-
 }

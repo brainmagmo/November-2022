@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 public class SliderPage extends PageObjectBase {
 	
 	@FindBy(css="#sliderContainer")
-	WebElement slider;
+	private WebElement slider;
 
 	public SliderPage(WebDriver driver) {
 		super(driver);
@@ -15,7 +15,4 @@ public class SliderPage extends PageObjectBase {
 	public Slider getSlider() {
 		return new Slider(this.slider);
 	}
-
-
-
 }

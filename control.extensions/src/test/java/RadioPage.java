@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 public class RadioPage extends PageObjectBase {
 	
 	@FindBy(xpath="//input[@type='radio']/../..")
-	WebElement radioGroup;
+	private WebElement radioGroup;
 
 	public RadioPage(WebDriver driver) {
 		super(driver);

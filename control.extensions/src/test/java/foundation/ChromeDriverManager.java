@@ -26,4 +26,9 @@ public class ChromeDriverManager extends DriverManager {
 		
 		this.setDriver(new ChromeDriver());
 	}
+
+	@Override
+	protected void supressWarnings() {
+		System.setProperty("webdriver.chrome.silentOutput","true");		
+	}
 }

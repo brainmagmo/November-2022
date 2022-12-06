@@ -7,7 +7,6 @@ public class RadioButton extends ControlExtensionBase {
 	
 	private static String labelXPath="./../label";
 
-
 	public RadioButton(WebElement mappedElement) {
 		this.mappedElement = mappedElement;
 	}
@@ -23,5 +22,4 @@ public class RadioButton extends ControlExtensionBase {
 	private WebElement getLabelElement() {
 		return this.mappedElement.findElement(By.xpath(labelXPath));
 	}
-
 }

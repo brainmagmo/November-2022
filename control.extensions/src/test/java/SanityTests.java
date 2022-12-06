@@ -6,6 +6,7 @@ import foundation.DriverManagerFactory;
 import foundation.TestBase;
 
 public class SanityTests extends TestBase {
+	
 	@Test
 	public void canRunTestNgTest() {
 		// If this doesn't pass then nothing will

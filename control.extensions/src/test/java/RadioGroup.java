@@ -3,7 +3,7 @@ import org.openqa.selenium.WebElement;
 
 public class RadioGroup extends ControlExtensionBase {
 	
-	WebElement groupElement;
+	private WebElement groupElement;
 
 	public RadioGroup(WebElement radioGroupElement) {
 		this.groupElement = radioGroupElement;
