@@ -20,7 +20,7 @@ public class ControlExtensionTests extends foundation.TestBase {
 	  var selected = radioGroup.getSelected();
 	  
 	  Assert.assertNotNull(selected, "The selected button should exist");
-	  Assert.assertEquals(selected.getText(), label, "The selected button should be the Yes button");
+	  Assert.assertEquals(selected.getText(), label, "The selected button should be the Yes button.");
   }
   
   @Test
@@ -48,7 +48,7 @@ public class ControlExtensionTests extends foundation.TestBase {
 	  var selected = radioGroup.getSelected();
 
 	  Assert.assertNotNull(noButton, "The no button should exist");
-	  Assert.assertNull(selected, "The no button should not be able to be selected");
+	  Assert.assertNull(selected, "The no button should not be able to be selected.");
   }
 
   @Test
