@@ -1,16 +1,16 @@
+package controlextension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-public class MultiSelect extends ControlExtensionBase {
+public class MultiSelect extends Dropdown{
 	
-	private Select select;
-
 	public MultiSelect(WebElement mappedElement) {
+		super(mappedElement);
 		this.select = new Select(mappedElement);
 	}
 	
 	public void select(String value) {
-		this.select.selectByVisibleText(value);
+		this.setValue(value);
 	}
 	
 	public String[] getSelected() {		

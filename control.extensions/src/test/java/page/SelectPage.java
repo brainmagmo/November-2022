@@ -1,6 +1,10 @@
+package page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import controlextension.Dropdown;
+import controlextension.MultiSelect;
 
 public class SelectPage extends PageObjectBase {
 

@@ -1,25 +1,27 @@
+package controlextension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class Dropdown extends ControlExtensionBase {
 	
-	private Select dropdown;
-
+	protected Select select;
+	
 	public Dropdown(WebElement mappedElement) {
-		this.dropdown = new Select(mappedElement);
+		super(mappedElement);
+		this.select = new Select(this.mappedElement);
 	}
 
 	public void setValue(String value) {
-		this.dropdown.selectByVisibleText(value);
+		this.select.selectByVisibleText(value);
 	}
 
 	public String getValue() {
-		var selected = this.dropdown.getFirstSelectedOption().getText();
+		var selected = this.select.getFirstSelectedOption().getText();
 		return selected;
 	}
 
 	public String[] getOptions() {
-		var options = this.dropdown
+		var options = this.select
 				.getOptions()
 				.stream()
 				.map(WebElement::getText)

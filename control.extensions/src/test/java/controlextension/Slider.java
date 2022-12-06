@@ -1,13 +1,12 @@
+package controlextension;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 public class Slider extends ControlExtensionBase {
 	
-	private WebElement mappedElement;
-
 	public Slider(WebElement mappedElement) {
-		this.mappedElement = mappedElement;
+		super(mappedElement);
 	}
 	
 	public void setValue(int value) {
