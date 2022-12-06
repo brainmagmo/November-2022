@@ -3,13 +3,13 @@ import org.openqa.selenium.WebElement;
 
 public class RadioButton extends ControlExtensionBase {
 	
-	private WebElement buttonElement;
+	private WebElement mappedElement;
 	
 	private static String labelXPath="./../label";
 
 
-	public RadioButton(WebElement buttonElement) {
-		this.buttonElement = buttonElement;
+	public RadioButton(WebElement mappedElement) {
+		this.mappedElement = mappedElement;
 	}
 
 	public void select() {
@@ -21,7 +21,7 @@ public class RadioButton extends ControlExtensionBase {
 	}
 	
 	private WebElement getLabelElement() {
-		return this.buttonElement.findElement(By.xpath(labelXPath));
+		return this.mappedElement.findElement(By.xpath(labelXPath));
 	}
 
 }

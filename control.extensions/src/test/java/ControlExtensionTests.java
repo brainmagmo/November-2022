@@ -58,27 +58,58 @@ public class ControlExtensionTests extends foundation.TestBase {
 
 	  Assert.assertEquals(results, expectedResultMessage, "The api link click should return a success message.");
   }
+  
+  @Test
+  public void cannotSetSlider80() {
+	  var number = 80;
+	  var expected = Integer.toString(number);
+	  
+	  var page = new SliderPage(this.driver);
+	  var slider = page.getSlider();
+	  slider.setValue(number);
+	  var value = slider.getValue();
 
-  /*
+	  Assert.assertEquals(value, expected, "The slider should be set to 80.");
+  }
+  
+  @Test
+  public void cannotSetSlider17() {
+	  var number = "17";
+	  
+	  var page = new SliderPage(this.driver);
+	  var slider = page.getSlider();
+	  slider.setValue(number);
+	  var value = slider.getValue();
 
-3. https://demoqa.com/slider 
-Four testcases total, one for each value (80,17,0,100)
-a. Set the value then get the value in each test case.
+	  Assert.assertEquals(value, number, "The slider should be set to 17.");
+  }
+  
+  @Test
+  public void cannotSetSlider0() {
+	  var number = 0;
+	  var expected = Integer.toString(number);
+	  
+	  var page = new SliderPage(this.driver);
+	  var slider = page.getSlider();
+	  slider.setValue(number);
+	  var value = slider.getValue();
 
-Create the Slider control extension. Include synchronization. 
-Should contain the following methods:
-void setValue(String value)
-String getValue()
+	  Assert.assertEquals(value, expected, "The slider should be set to 0.");
+  }
+  
+  @Test
+  public void cannotSetSlider100() {
+	  var number = 100;
+	  var expected = Integer.toString(number);
+	  
+	  var page = new SliderPage(this.driver);
+	  var slider = page.getSlider();
+	  slider.setValue(number);
+	  var value = slider.getValue();
 
-Example usage:
-Slider slider = new Slider(element);
-slider.setValue(80);
-slider.setValue(17);
-slider.setValue(0);
-slider.setValue(100);
+	  Assert.assertEquals(value, expected, "The slider should be set to 100.");
+  }
 
-Assert each value set.
-  */
   /*
 
 4. https://demoqa.com/select-menu
