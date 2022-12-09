@@ -6,7 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ReadWriteTests {
-	private static String FILEPATH = "C:\\Users\\trevo\\eclipse-workspace\\read.write\\src\\test\\resources\\basses.csv";
+	private static String FILEPATH = "C:\\Users\\trevo\\git\\November-2022\\read.write\\src\\test\\resources\\basses.csv";
 
 	@Test
 	public void canReadFile() {
