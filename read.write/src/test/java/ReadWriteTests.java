@@ -1,6 +1,4 @@
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +13,7 @@ public class ReadWriteTests {
   }
   
   @Test 
-  public void canReadintoHash() throws IOException {
+  public void canReadintoHash() {
 	  	Map<String,String> expectedMap = new HashMap<String,String>();
 	  	expectedMap.put("Corvette", "Warwick");
 	  	expectedMap.put("Thumb", "Warwick");
