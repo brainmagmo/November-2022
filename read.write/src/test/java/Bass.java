@@ -6,7 +6,7 @@ public class Bass {
 	public Bass() {
 	}
 	
-	public Bass(String make, String model) {
+	public Bass(String model, String make) {
 		this.model = model;
 		this.make = make;
 	}
@@ -23,4 +23,26 @@ public class Bass {
 	public void setMake(String make) {
 		this.make = make;
 	}  
+	
+	@Override
+    public boolean equals(Object o) {
+ 
+        if (o == this) {
+            return true;
+        }
+        
+        if (!(o instanceof Bass)) {
+            return false;
+        }
+         
+        Bass c = (Bass) o;
+         
+        return c.make.equals(this.make)
+                && c.model.equals(this.model);
+    }
+	
+	@Override
+    public String toString() {
+        return "make: " + this.make + ", model: " + this.model;
+    }
 }

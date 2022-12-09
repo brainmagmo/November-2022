@@ -1,5 +1,6 @@
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ReadWriteTool {
@@ -10,6 +11,7 @@ public class ReadWriteTool {
 		var make = "";
 		var model = "";
 		var track = 0;
+		
 		try {
 			reader = new FileReader(filePath);
 			var data = reader.read();	
@@ -43,13 +45,22 @@ public class ReadWriteTool {
 
 			quickMap.remove("Model");	  
 			reader.close();
-
-			return quickMap;
-			
+			return quickMap;			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static ArrayList<Bass> getBassListFromFile(String fILEPATH) {
+		var bassList = new ArrayList<Bass>();
+			
+		getModelMakeMapFromFile(fILEPATH)
+		.forEach((model, make) -> {
+			bassList.add(new Bass(model, make));
+		});
+		
+		return bassList;
 	}
 
 }
