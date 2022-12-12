@@ -16,7 +16,7 @@ public class ReadWriteTests {
 		try { reader = new FileReader(FILEPATH); } catch (FileNotFoundException e) {}
 		Assert.assertNotNull(reader, "the file should be able to be read");
 	}
-	
+
 	@Test 
 	public void canReadintoHash() {
 		var expectedMap = new HashMap<String,String>();
@@ -28,12 +28,7 @@ public class ReadWriteTests {
 		expectedMap.put("Streamer", "Warwick"	);
 		expectedMap.put("Jazz", 	"Fender"	);
 
-		HashMap<String, String> actaulMap = null;
-		try {
-			actaulMap = ReadWriteTool.getModelMakeMapFromFile(FILEPATH);
-		} catch (CsvValidationException e) {
-			e.printStackTrace();
-		}
+		var actaulMap = ReadWriteTool.getModelMakeMapFromFile(FILEPATH);
 
 		Assert.assertEquals(actaulMap, expectedMap, "The CSV should be read and mapped");
 	}
@@ -47,7 +42,7 @@ public class ReadWriteTests {
 		expectedBasses.add(new Bass("Precision","Fender"	));
 		expectedBasses.add(new Bass("Streamer", "Warwick"	));
 		expectedBasses.add(new Bass("Jazz", 	"Fender"	));
-		
+
 		var actualBasses = ReadWriteTool.getBassListFromFile(FILEPATH);
 
 		Assert.assertTrue(actualBasses.containsAll(expectedBasses) &&
