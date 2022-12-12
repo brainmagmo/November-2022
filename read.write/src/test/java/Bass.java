@@ -1,6 +1,9 @@
+import com.opencsv.bean.CsvBindByName;
 
 public class Bass {
+	@CsvBindByName(column = "Make")
 	private String make;
+	@CsvBindByName(column = "Model")
 	private String model;
 		
 	public Bass() {

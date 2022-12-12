@@ -1,8 +1,12 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import com.opencsv.bean.CsvToBeanBuilder;
 
 public class ReadWriteTool {
 
@@ -25,15 +29,20 @@ public class ReadWriteTool {
 		return null;
 	}
 
-	public static ArrayList<Bass> getBassListFromFile(String fILEPATH) {
-		var bassList = new ArrayList<Bass>();
-
-		getModelMakeMapFromFile(fILEPATH)
-		.forEach((model, make) -> {
-			bassList.add(new Bass(model, make));
-		});
-
-		return bassList;
+	public static List<Bass> getBassListFromFile(String FILEPATH) {
+		List<Bass> basses = null;
+		try {
+			basses = new CsvToBeanBuilder<Bass>(new FileReader(FILEPATH))
+				       .withType(Bass.class)
+				       .build()
+				       .parse();
+			return basses;
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return basses;
 	}
 
 }
