@@ -5,6 +5,8 @@ import java.util.HashMap;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.opencsv.exceptions.CsvValidationException;
+
 public class ReadWriteTests {
 	private static String FILEPATH = "C:\\Users\\trevo\\git\\November-2022\\read.write\\src\\test\\resources\\basses.csv";
 
@@ -18,6 +20,7 @@ public class ReadWriteTests {
 	@Test 
 	public void canReadintoHash() {
 		var expectedMap = new HashMap<String,String>();
+		expectedMap.put("Model", 	"Make"	);
 		expectedMap.put("BB500", 	"Yamaha"	);
 		expectedMap.put("Corvette", "Warwick"	);
 		expectedMap.put("Thumb", 	"Warwick"	);
@@ -25,7 +28,12 @@ public class ReadWriteTests {
 		expectedMap.put("Streamer", "Warwick"	);
 		expectedMap.put("Jazz", 	"Fender"	);
 
-		var actaulMap = ReadWriteTool.getModelMakeMapFromFile(FILEPATH);
+		HashMap<String, String> actaulMap = null;
+		try {
+			actaulMap = ReadWriteTool.getModelMakeMapFromFile(FILEPATH);
+		} catch (CsvValidationException e) {
+			e.printStackTrace();
+		}
 
 		Assert.assertEquals(actaulMap, expectedMap, "The CSV should be read and mapped");
 	}
