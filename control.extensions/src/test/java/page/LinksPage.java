@@ -22,4 +22,9 @@ public class LinksPage {
 		var msg = this.driver.findElement(By.id("linkResponse")).getText();
 		return msg;
 	}
+
+	public String getLinkClickResults(String label) {
+		this.getLink(label).click();
+		return getResults();
+	}
 }

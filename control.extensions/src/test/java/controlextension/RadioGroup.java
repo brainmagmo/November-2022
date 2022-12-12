@@ -10,7 +10,7 @@ public class RadioGroup extends ControlExtensionBase {
 	}
 
 	public RadioButton getButton(String label) {
-		var buttonElement = this.mappedElement.findElement(By.xpath("./*[text()='" +label+ "']/../input"));
+		var buttonElement = this.mappedElement.findElement(By.xpath(".//*[text()='" +label+ "']/../input"));
 		
 		return new RadioButton(buttonElement);
 	}

@@ -1,6 +1,9 @@
 package controlextension;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WrapsDriver;
+import org.openqa.selenium.interactions.Actions;
 
 public class ControlExtensionBase {
 
@@ -11,6 +14,13 @@ public class ControlExtensionBase {
 	}
 	
 	public void click() {
+		new Actions(getDriver())
+		.moveToElement(this.mappedElement)
+		.perform();
 		this.mappedElement.click();
+	}
+	
+	private WebDriver getDriver() {
+		return ((WrapsDriver)this.mappedElement).getWrappedDriver();
 	}
 }

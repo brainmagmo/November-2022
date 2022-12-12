@@ -12,7 +12,7 @@ public class RadioButton extends ControlExtensionBase {
 		super(mappedElement);
 		this.label = this.mappedElement.findElement(By.xpath(labelXPath));
 	}
-
+	
 	public void select() {
 		label.click();
 	}

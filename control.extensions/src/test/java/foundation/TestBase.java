@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 public abstract class TestBase {
 	protected DriverManager manager;
 	protected WebDriver driver;
+	private PageRepository pageRepository;
 	
 	@BeforeMethod
 	public void setup() {
@@ -17,6 +18,7 @@ public abstract class TestBase {
 		this.manager.setImplicitWait(10);
 		this.driver = manager.getDriver();
 		this.manager.maximizeWindow();
+		this.pageRepository = new PageRepository(this.driver);
 	}
 
 	@AfterMethod
@@ -25,4 +27,8 @@ public abstract class TestBase {
 			this.manager.quitDriver();
 		}
 	}
+	
+	  protected PageRepository fromPages() {
+			return this.pageRepository;
+		}
 }

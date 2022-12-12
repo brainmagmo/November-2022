@@ -9,9 +9,11 @@ import controlextension.MultiSelect;
 public class SelectPage extends PageObjectBase {
 
 	@FindBy(css="#oldSelectMenu")
-	private WebElement dropdown;
+	private WebElement dropdownElement;
+	private Dropdown dropdown;
 	@FindBy(css="#cars")
-	private WebElement multiSelect;
+	private WebElement multiSelectElement;
+	private MultiSelect multiSelect;
 
 	public SelectPage(WebDriver driver) {
 		super(driver);
@@ -19,10 +21,26 @@ public class SelectPage extends PageObjectBase {
 	}
 
 	public Dropdown getSelectDropdown() {
-		return new Dropdown(this.dropdown);
+		if (this.dropdown == null)
+			this.dropdown = new Dropdown(this.dropdownElement);
+		return this.dropdown;
 	}
 
 	public MultiSelect getMultiselect() {
-		return new MultiSelect(this.multiSelect);
+		if (this.multiSelect == null)
+			this.multiSelect = new MultiSelect(this.multiSelectElement);
+		return this.multiSelect;
+	}
+
+	public SelectPage setSingleSelectValue(String color) {
+		getSelectDropdown()
+			.setValue(color);
+		return this;
+	}
+
+	public String getSingleSelectValue() {
+		return getSelectDropdown()
+				.getValue();
+
 	}
 }

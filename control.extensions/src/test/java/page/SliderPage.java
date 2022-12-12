@@ -8,14 +8,36 @@ import controlextension.Slider;
 public class SliderPage extends PageObjectBase {
 	
 	@FindBy(css="#sliderContainer")
-	private WebElement slider;
+	private WebElement sliderElement;
+	
+	private Slider slider;
 
 	public SliderPage(WebDriver driver) {
 		super(driver);
 		this.driver.get("https://demoqa.com/slider");
+		this.slider = null;
 	}
 
 	public Slider getSlider() {
-		return new Slider(this.slider);
+		if(this.slider == null)
+			this.slider = new Slider(this.sliderElement);
+		return this.slider;
 	}
+
+	public SliderPage setSliderValue(int number) {
+		getSlider().setValue(number);
+		return this;
+	}
+	
+
+	public SliderPage setSliderValue(String number) {
+		getSlider().setValue(number);
+		return this;
+	}
+
+	public String getSliderValue() {
+		return getSlider().getValue();
+	}
+	
+	
 }

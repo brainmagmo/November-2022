@@ -8,15 +8,33 @@ import controlextension.RadioGroup;
 public class RadioPage extends PageObjectBase {
 	
 	@FindBy(xpath="//input[@type='radio']/../..")
-	private WebElement radioGroup;
+	private WebElement radioElement;
+	private RadioGroup radioGroup;
+	
 
 	public RadioPage(WebDriver driver) {
 		super(driver);
 		driver.get("https://demoqa.com/radio-button");
+		this.radioGroup = null;
 	}
 
 	public RadioGroup getRadioGroup() {
-		return new RadioGroup(radioGroup);
+		if(this.radioGroup == null)
+			this.radioGroup = new RadioGroup(radioElement);
+		return this.radioGroup;
+	}
+
+	public RadioPage selectRadioButtonValue(String buttonValue) {
+		getRadioGroup()
+		.getButton(buttonValue)
+		.select();
+		return this;
+	}
+
+	public String getSelectedValue() {
+		return getRadioGroup()
+		.getSelected()
+		.getText();
 	}
 
 }
