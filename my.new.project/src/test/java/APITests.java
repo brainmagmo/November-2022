@@ -4,6 +4,8 @@ import static org.hamcrest.Matchers.equalTo;
 
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.testng.Assert;
@@ -52,8 +54,7 @@ public class APITests {
 /*/	2. (POST login - succesful) Write a test that verifies the token return value.*/
 	@SuppressWarnings("unchecked")
 	@Test
-	public void canLogin() {
-		
+	public void canLogin() {	
 	    JSONObject requestBody = new JSONObject();
 	    requestBody.put("email", "eve.holt@reqres.in");
 	    requestBody.put("password", "cityslicka"); 
@@ -94,8 +95,7 @@ public class APITests {
 	@Test
 	public void canPatch() {
 	    var now = Instant.now();
-	    var isAfter = 1;
-		
+	    var isAfter = 1;		
 	    JSONObject requestBody = new JSONObject();
 	    requestBody.put("name", "Morpheus2"); 
 		
@@ -113,10 +113,7 @@ public class APITests {
 	    } catch (DateTimeParseException e) {
 	    	e.printStackTrace();
 	    }
-//	    System.out.println(response.asPrettyString());	    
-//	    System.out.println("now: " + now);
-//	    System.out.println("update: " + update);
-//	    System.out.println("compare: " +update.compareTo(now));
+
 	    Assert.assertNotNull(update, "patch should return update");
 	    Assert.assertEquals(update.compareTo(now), isAfter, "Update should take place and return time after init");
 	}
@@ -146,9 +143,11 @@ public class APITests {
 	    } catch (DateTimeParseException e) {
 	    	e.printStackTrace();
 	    }
+	    
 	    Assert.assertNotNull(update, "patch should return update");
 	    Assert.assertEquals(update.compareTo(now), isAfter, "Update should take place and return time after init");
 	}
+	
 /*/	6. (GET single user). Deserialize the user data into an object.*/
 	@Test
 	public void canDeserializeAUser() {
@@ -158,5 +157,14 @@ public class APITests {
 		Assert.assertEquals(user.getEmail(), "janet.weaver@reqres.in");
 		
 	}
+	
 /*/	7. (GET list users). Deserialize the user data into a collection of objects.*/
+	@Test
+	public void canDeserializeUserList() {
+
+		List<Data> users = get("/users?page=1").jsonPath().getList("data", Data.class);
+
+		Assert.assertEquals(users.size(), 6);
+		Assert.assertEquals(users.get(1).getEmail(), "janet.weaver@reqres.in");
+	}
 }
