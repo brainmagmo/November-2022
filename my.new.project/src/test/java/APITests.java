@@ -1,21 +1,17 @@
 //import io.restassured.RestAssured;
-import static io.restassured.RestAssured.get;
+import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.*;
+import java.time.Instant;
 import java.time.format.DateTimeParseException;
 
+import org.json.simple.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import io.restassured.response.Response;
-
-import org.json.simple.JSONObject;
-
-import static io.restassured.RestAssured.*;
+import pojo.*;
 
 public class APITests {
 	@BeforeClass
@@ -154,6 +150,13 @@ public class APITests {
 	    Assert.assertEquals(update.compareTo(now), isAfter, "Update should take place and return time after init");
 	}
 /*/	6. (GET single user). Deserialize the user data into an object.*/
+	@Test
+	public void canDeserializeAUser() {
 
+		Data user = get("/users/2").as(Root.class).getData();
+		Assert.assertEquals(user.getId(), 2);
+		Assert.assertEquals(user.getEmail(), "janet.weaver@reqres.in");
+		
+	}
 /*/	7. (GET list users). Deserialize the user data into a collection of objects.*/
 }
