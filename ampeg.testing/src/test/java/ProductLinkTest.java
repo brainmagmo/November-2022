@@ -1,6 +1,8 @@
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import pages.HomePage;
+
 public class ProductLinkTest extends AmpegTest {
 	
 	//page no longer exists
@@ -42,9 +44,9 @@ public class ProductLinkTest extends AmpegTest {
 				.openShop()
 				.openShirts()
 				.openBlackTee()
-				.ableToAddXLtoCart()
+				.ableToAddXLtoCart()				
 				.getCartCount();
-		
+		//code is returning null quantity even though manual test works...
 		Assert.assertEquals(cartCount, expected, "Test should find that items were visibly added to cart");
 	}
 
