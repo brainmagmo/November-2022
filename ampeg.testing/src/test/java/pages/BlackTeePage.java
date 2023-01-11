@@ -6,11 +6,11 @@ import org.openqa.selenium.support.ui.*;
 
 public class BlackTeePage extends PageObject {
 	
-	@FindBy(how=How.CSS, using="span.counter-number")
-	WebElement CartCount;
-	@FindBy(how=How.CSS, using="select#attribute178")
+	@FindBy(how=How.CSS, using="span.cart-quantity.countPill--positive")
+	WebElement CartCountPositive;
+	@FindBy(how=How.CSS, using="select#attribute_select_123")
 	WebElement sizeDropdown;
-	@FindBy(how=How.CSS, using="#product-addtocart-button")
+	@FindBy(how=How.CSS, using="input#form-action-addToCart")
 	WebElement addToCartButton;
 
 	public BlackTeePage(WebDriver driver) {
@@ -18,7 +18,8 @@ public class BlackTeePage extends PageObject {
 	}
 
 	public String getCartCount() {
-		String count = CartCount.getText();		
+		String count = CartCountPositive.getText();
+		System.out.println(count);
 		return count;
 	}
 	
@@ -28,10 +29,8 @@ public class BlackTeePage extends PageObject {
 		addToCartButton.click();
 		
 		var wait = new WebDriverWait(this.driver, 10);
-		By saysOne = By.xpath(""
-				+ "//div[@class='minicart-wrapper']"
-				+ "//span[@class='counter-number' "
-				+ "and text()='1']");
+		By saysOne = By.xpath("//span[contains(@class,'countPill cart-quantity countPill--positive')"
+				+ " and text()='1']");
 		wait.until(ExpectedConditions
 				.presenceOfElementLocated(saysOne));
 		
