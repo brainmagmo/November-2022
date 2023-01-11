@@ -1,3 +1,4 @@
+package driver;
 import org.openqa.selenium.edge.EdgeDriver;
 
 public class EdgeDriverManager extends DriverManager {
