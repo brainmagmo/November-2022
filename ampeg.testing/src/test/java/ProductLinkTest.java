@@ -6,7 +6,7 @@ import pages.HomePage;
 public class ProductLinkTest extends AmpegTest {
 	
 	//page no longer exists
-	@Deprecated
+	@Test
 	public void ensureArtistOnProductDetailsPage() {		
 		String expected = "Bootsy Collins";
 		String actualName = new HomePage(this.driver)

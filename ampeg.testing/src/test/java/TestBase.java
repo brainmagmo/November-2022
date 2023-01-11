@@ -1,4 +1,4 @@
-import driver.DriverManagerFactory;
+import foundation.DriverManagerFactory;
 
 public abstract class TestBase {
 	
