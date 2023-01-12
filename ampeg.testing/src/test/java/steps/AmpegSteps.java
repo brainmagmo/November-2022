@@ -178,14 +178,15 @@ public class AmpegSteps extends CucumberTestBase {
 
 	@When("user clicks on shopping cart symbol")
 	public void user_clicks_on_shopping_cart_symbol() {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+		fromPages().homePage().openShoppingCart();
+
 	}
 
 	@Then("user will see their cart with items in it")
 	public void user_will_see_their_cart_with_items_in_it() {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+		boolean sawCart = fromPages().shoppingCartPage().userSeesCart();
+		Assert.assertTrue(sawCart, "User should be able to see their cart with items in it");
+		cleanup();
 	}
 
 }

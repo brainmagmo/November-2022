@@ -14,6 +14,9 @@ public class HomePage extends PageObject {
 	WebElement technicalLibraryLink;
 	@FindBy(how=How.CSS , using="a.artists")
 	WebElement artistsLink;
+	@FindBy(how=How.CSS , using="a.shop")
+	WebElement shoppingCartLink;
+	
 	
 	private String homePageURL;
 
@@ -22,9 +25,14 @@ public class HomePage extends PageObject {
 		homePageURL = "https://www.ampeg.com";	
 	}
 
+	public HomePage navigate() {
+		this.driver.navigate()
+		.to(homePageURL);
+		return null;
+	}
+
 	public ProductPage openProductPage() {
 		productsLink.click();
-
 		return new ProductPage(this.driver);
 	}
 
@@ -43,9 +51,8 @@ public class HomePage extends PageObject {
 		return new ArtistsPage(this.driver);
 	}
 
-	public HomePage navigate() {
-		this.driver.navigate()
-		.to(homePageURL);
-		return null;
+	public ShoppingCartPage openShoppingCart() {
+		shoppingCartLink.click();
+		return new ShoppingCartPage(this.driver);
 	}
 }

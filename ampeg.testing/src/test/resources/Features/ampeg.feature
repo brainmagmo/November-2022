@@ -41,9 +41,9 @@ Feature: Browse Ampeg
     
     
   #FR-005 As a user I can view items in my Shopping Cart
-  #@fr-005
-  #Scenario: View Shopping Carrt
-    #Given user is on a home page
-    #When user clicks on shopping cart symbol
-    #Then user will see their cart with items in it
+  @fr-005
+  Scenario: View Shopping Carrt
+    Given user is on a home page
+    When user clicks on shopping cart symbol
+    Then user will see their cart with items in it
 

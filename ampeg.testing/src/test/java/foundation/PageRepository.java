@@ -27,6 +27,9 @@ public class PageRepository {
 	public ArtistsPage artistsPage() {
 		return new ArtistsPage(this.driver);
 	}
+	public ShoppingCartPage shoppingCartPage() {
+		return new ShoppingCartPage(this.driver);
+	}
 
 	
 }
