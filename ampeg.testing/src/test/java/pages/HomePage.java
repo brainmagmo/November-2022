@@ -12,6 +12,9 @@ public class HomePage extends PageObject {
 	WebElement shopNowLink;
 	@FindBy(how=How.LINK_TEXT , using="Technical Library")
 	WebElement technicalLibraryLink;
+	@FindBy(how=How.CSS , using="a.artists")
+	WebElement artistsLink;
+	
 	private String homePageURL;
 
 	public HomePage(WebDriver driver) {
@@ -33,6 +36,11 @@ public class HomePage extends PageObject {
 	public TechnicalLibraryPage openTechnicalLibrary() {
 		technicalLibraryLink.click();
 		return new TechnicalLibraryPage(this.driver);
+	}
+	
+	public ArtistsPage openArtists() {
+		artistsLink.click();
+		return new ArtistsPage(this.driver);
 	}
 
 	public HomePage navigate() {

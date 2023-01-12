@@ -21,6 +21,12 @@ public class PageRepository {
 	public Heritage50thAnniversarySVTPage heritageSVTPage() {
 		return new Heritage50thAnniversarySVTPage(this.driver);	
 	}
+	public BuyHeritagePage buyHeritagePage() {
+		return new BuyHeritagePage(this.driver);
+	}
+	public ArtistsPage artistsPage() {
+		return new ArtistsPage(this.driver);
+	}
 
 	
 }
