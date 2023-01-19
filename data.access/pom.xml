@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>quintrix.com</groupId>
-  <artifactId>my.new.project</artifactId>
+  <artifactId>data.access</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <build>
+      <build>
     <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -14,21 +14,5 @@
             </configuration>
         </plugin>
     </plugins>
-
 </build>
-    <dependencies><dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>rest-assured</artifactId>
-      <version>5.3.0</version>
-</dependency><dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>json-schema-validator</artifactId>
-      <version>5.3.0</version>
-      <scope>test</scope>
-</dependency><dependency>
-    <groupId>com.googlecode.json-simple</groupId>
-    <artifactId>json-simple</artifactId>
-    <version>1.1.1</version>
-</dependency></dependencies>
-
 </project>

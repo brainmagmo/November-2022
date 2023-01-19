@@ -1,0 +1,321 @@
+-- Create a new branch called f-sql
+-- Create a file called Sakila_Project.sql
+
+SELECT 
+	c.city
+FROM
+	sakila.city AS c
+ORDER BY c.city DESC
+LIMIT 10
+;
+
+-- 2. Get all films with "airplane" in the title.
+
+SELECT 
+	f.title
+FROM
+	sakila.film AS f
+WHERE
+	f.title LIKE '%airplane%'
+;
+
+-- 3. Get the highest payment amount.
+
+SELECT 
+	MAX(p.amount) AS 'MaxAmount'
+FROM
+	sakila.payment p
+;
+
+-- 4. Get the number of records in the customer table for store id #1.
+
+SELECT 
+	COUNT(*) AS 'Number of Customers'
+FROM
+	sakila.customer AS c
+WHERE
+	c.store_id = 1
+;
+
+-- 5. Get all payment records for customer with email address "NANCY.THOMAS@sakilacustomer.org"
+
+SELECT 
+	p.*
+FROM
+	sakila.payment AS p
+	INNER JOIN
+		sakila.customer AS c 
+	USING 
+		(customer_id)
+WHERE
+	c.email = 'NANCY.THOMAS@sakilacustomer.org'
+;
+
+-- 6. Use a View to get the film info for actor Bob Fawcett.
+
+SELECT 
+	*
+FROM
+	sakila.film_list AS fl
+WHERE
+	fl.actors LIKE '%BOB FAWCETT%'
+;
+
+-- OR:
+
+SELECT 
+	film_info
+FROM
+	sakila.actor_info AS s
+WHERE
+	s.first_name = 'bob'
+		AND s.last_name = 'fawcett'
+;
+
+-- 7. Use a Stored Procedure to get the 4 inventory ids for the film "Alien Center" at Store #2. 
+
+SELECT 
+	@filmid:=film_id
+FROM
+	sakila.film
+WHERE
+	title = 'Alien Center'
+;
+
+call sakila.film_in_stock(@filmid, 2, @inventoryids)
+;
+
+
+-- 8. Insert a new store. Ensure that you use TRANSACTION. (This one is possible but it's tough! Pay attention to constraints and the order that you are inserting data.) 
+
+start transaction
+;
+
+set @address = (
+	select address_id 
+	from sakila.address
+	where address_id not in (
+		select address_id 
+		from sakila.store
+	) 
+	limit 1
+);
+
+SELECT 
+	@a_store:=s.store_id
+FROM
+	sakila.store AS s
+LIMIT 1
+;
+
+insert into sakila.staff(
+	first_name,	
+	last_name,
+	address_id, 
+	email,
+	store_id,
+	username, 
+	password
+	) 
+values (
+	'trevor',
+	'kleinstuber',
+	@address, 
+	'tklein@email.site',
+	@a_store,
+	'tklein', 
+	'very secure password'
+	)
+;
+	
+set @staff = LAST_INSERT_ID()
+;
+
+insert into sakila.store(
+	manager_staff_id,
+	address_id
+	) 
+values (
+	@staff, 
+ 	@address
+	)
+;
+
+set @mystore = LAST_INSERT_ID()
+;
+
+UPDATE sakila.staff 
+SET 
+	store_id = @mystore
+WHERE
+	staff_id = @staff
+;
+
+rollback
+;
+
+-- 9. Update the timestamp to the current date/time for the new store you entered in the previous question. 
+
+start transaction
+;
+
+SELECT 
+	@staff:=t.staff_id
+FROM
+	sakila.staff AS t
+WHERE
+	t.first_name = 'trevor'
+	AND t.last_name = 'kleinstuber'
+;
+
+SELECT 
+	@mystore:=store_id
+FROM
+	sakila.store AS s
+WHERE
+	s.manager_staff_id = @staff
+;
+
+UPDATE sakila.store AS s 
+SET 
+	s.last_update = NOW()
+WHERE
+	s.store_id = @mystore
+;
+
+rollback
+;
+
+-- 10. Delete the new store. 
+
+start transaction;
+
+SELECT 
+	@staff:=t.staff_id
+FROM
+	sakila.staff AS t
+WHERE
+	t.first_name = 'trevor'
+	AND t.last_name = 'kleinstuber'
+;
+
+SELECT 
+	@mystore:=s.store_id
+FROM
+	sakila.store AS s
+WHERE
+	s.manager_staff_id = @staff
+;
+
+SELECT 
+	@otherstore:=s.store_id
+FROM
+	sakila.store AS s
+WHERE
+	s.store_id != @mystore
+LIMIT 1
+;
+
+UPDATE sakila.staff AS t 
+SET 
+	t.store_id = @otherstore
+WHERE
+	t.staff_id = @staff
+;
+
+delete from sakila.store s
+where s.store_id = @mystore
+;
+
+rollback
+;
+
+-- 11. Using one SQL statement, get how many films are there in each rating category.
+
+SELECT 
+	f.rating, COUNT(*) AS Count
+FROM
+	sakila.film f
+GROUP BY f.rating
+ORDER BY Count DESC
+;
+
+-- 12. Get (in order) the first and last names of the 3 customers who have spent the most, along with how much they have paid overall.
+
+SELECT 
+	c.first_name, c.last_name, Spent
+FROM
+	sakila.customer AS c
+	JOIN
+		(SELECT 
+			SUM(amount) AS Spent, p.customer_id
+		FROM
+			sakila.payment AS p
+		GROUP BY p.customer_id
+		ORDER BY Spent DESC
+		LIMIT 3) AS BigSpenders 
+	USING 
+		(customer_id)
+;
+
+-- 13. Get all movies rented by the customer who spent the most. (Hint: This will either require nested queries, or more than two joins. one approach is much shorter than the other.)
+
+SELECT 
+	f.title
+FROM
+	sakila.film f
+	JOIN
+		sakila.inventory i 
+	USING 
+		(film_id)
+	JOIN
+		sakila.rental r 
+	USING 
+		(inventory_id)
+	JOIN
+		(SELECT 
+			SUM(amount) AS Spent, p.customer_id
+		FROM
+			sakila.payment p
+		GROUP BY p.customer_id
+		ORDER BY Spent DESC
+		LIMIT 1) AS BigSpender 
+	USING 
+		(customer_id)
+;
+
+-- 14. Get the first and last names of all customers who spent more than $150, along with how much they spent.
+
+SELECT 
+	c.first_name, c.last_name, Spent
+FROM
+	sakila.customer AS c
+	JOIN
+		(SELECT 
+			SUM(amount) AS Spent, p.customer_id
+		FROM
+			sakila.payment AS p
+		GROUP BY p.customer_id) AS BigSpenders 
+	USING 
+		(customer_id)
+WHERE
+	spent > 150
+;
+
+SELECT 
+	c.first_name, c.last_name, SUM(p.amount) AS Spent
+FROM
+	sakila.customer AS c
+	JOIN
+		sakila.payment AS p USING (customer_id)
+GROUP BY c.customer_id
+HAVING Spent > 150
+ORDER BY Spent DESC
+;
+
+-- Do not hard code IDs.
+
+-- https://dev.mysql.com/doc/sakila/en/sakila-introduction.html
+
+-- Schema Diagram:
+-- https://www.jooq.org/sakila#:~:text=The%20Sakila%20database%20is%20a,films%2C%20stores%2C%20and%20rentals.
