@@ -18,8 +18,10 @@ public class BlackTeePage extends PageObject {
 	}
 
 	public String getCartCount() {
-		String count = CartCountPositive.getText();
-		System.out.println(count);
+		//this.driver.findElement(By.partialLinkText("Continue Shoppin"));
+		//String count = CartCountPositive.getText();
+		//System.out.println(count);
+		String count = this.driver.findElement(By.xpath("//p[@data-cart-quantity]")).getAttribute("data-cart-quantity");
 		return count;
 	}
 	
