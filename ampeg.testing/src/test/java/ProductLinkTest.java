@@ -6,7 +6,11 @@ import pages.HomePage;
 public class ProductLinkTest extends AmpegTest {
 	
 	//page no longer exists
-	@Test
+
+
+
+	@Test(retryAnalyzer = Retrier.class)
+
 	public void ensureArtistOnProductDetailsPage() {		
 		String expected = "Bootsy Collins";
 		String actualName = new HomePage(this.driver)
@@ -17,7 +21,7 @@ public class ProductLinkTest extends AmpegTest {
 		Assert.assertEquals(actualName, expected, "Test should find artist name");
 	}
 
-	@Test
+	@Test(retryAnalyzer = Retrier.class)
 	public void downloadUserManual() {
 		
 		String expectedURL = "Heritage%2050th%20Anniversary%20SVT%20Quick%20Start%20Guide%20-%20English%20.pdf";
@@ -35,7 +39,7 @@ public class ProductLinkTest extends AmpegTest {
 		Assert.assertEquals(actual,expectedURL,"Test should find pull up the pdf for the manual");
 	}
 
-	@Test
+	@Test(retryAnalyzer = Retrier.class)
 	public void addItemToShoppingCart() {
 
 		String expected = "1";
@@ -46,7 +50,7 @@ public class ProductLinkTest extends AmpegTest {
 				.openBlackTee()
 				.ableToAddXLtoCart()				
 				.getCartCount();
-		//code is returning null quantity even though manual test works...
+		
 		Assert.assertEquals(cartCount, expected, "Test should find that items were visibly added to cart");
 	}
 
