@@ -22,14 +22,14 @@ public class AmpegTest {
 	  }
 
 	private void launchDriver(String url) {
-		var chromeDpath = "C:\\Users\\trevo\\webdrivers\\chromedriver.exe";
+		var chromeDpath = "C:\\temp\\chromedriver.exe";
 		System.setProperty("webdriver.chrome.driver", chromeDpath);
 
 		this.driver = new ChromeDriver();
 
 		this.driver.manage()
 			.timeouts()
-			.implicitlyWait(10, TimeUnit.SECONDS);
+			.implicitlyWait(3, TimeUnit.SECONDS);
 		
 		this.driver.navigate()
 			.to(url); 
