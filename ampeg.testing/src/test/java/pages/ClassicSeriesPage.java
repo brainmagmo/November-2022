@@ -4,7 +4,7 @@ import org.openqa.selenium.support.*;
 
 public class ClassicSeriesPage extends PageObject {
 		
-	@FindBy(how=How.LINK_TEXT , using="SVT-410HLF")
+	@FindBy(how=How.XPATH , using="//h2[contains(text(),'410HLF')]/../a")
 	WebElement productLink;
 
 	public ClassicSeriesPage(WebDriver driver) {
